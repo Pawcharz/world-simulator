@@ -1,11 +1,13 @@
 #pragma once
 #include "Animal.h"
 
-class Sheep : protected Animal
+class Sheep : public Animal
 {
 public:
 	Sheep();
 
 	~Sheep();
+
+	//void Movement();
 };
 

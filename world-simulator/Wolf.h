@@ -8,5 +8,7 @@ public:
 	Wolf();
 
 	~Wolf();
+
+	//void Movement();
 };
 

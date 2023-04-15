@@ -1,13 +1,6 @@
 #include "Displayer.h"
 
-#include <iostream>
-#include "Wolf.h"
-#include "Sheep.h"
-
-#include <vector>
-
-using namespace std;
-
+Displayer* Displayer::displayerInstance = nullptr;
 
 Displayer::Displayer() {
 	World* world = World::GetInstance();
@@ -17,14 +10,28 @@ Displayer::Displayer() {
 	displayedSize.x += 2;
 	displayedSize.y += 2;
 	//displayedSize.x *= 2;
+
 	screenBuffer = new vector<vector<char*>*>(size.y);
 
 	for (int y = 0; y < size.x; y++)
 	{
-		vector<char*>* row = screenBuffer->at(y);
-		row = new vector<char*>(size.x);
+		vector<char*>* rowTmp = new vector<char*>(size.x);
+		for (int x = 0; x < size.y; x++)
+		{
+			(*rowTmp)[x] = new char('*');
+		}
+		(*screenBuffer)[y] = rowTmp;
 	}
 
+}
+
+Displayer* Displayer::GetInstance() {
+	if (displayerInstance == nullptr) {
+		displayerInstance = new Displayer();
+		return displayerInstance;
+	}
+
+	return displayerInstance;
 }
 
 void Displayer::UpdateBuffer() {
@@ -33,24 +40,28 @@ void Displayer::UpdateBuffer() {
 	int height = screenBuffer->size();
 	for (int y = 0; y < height; y++)
 	{
-		vector<char*>* row = screenBuffer->at(y);
+		vector<char*>* row = (*screenBuffer)[y];
 		int width = row->size();
 
 		for (int x = 0; x < width; x++)
 		{
-			*row->at(x) = '*';
+			*(*row)[x] = '*';
 		}
 	}
 
 	vector<Organism*>* organisms = world->GetOrganisms();
+
 	int organismsCount = organisms->size();
+
 	for (int i = 0; i < organismsCount; i++)
 	{
-		Organism* organism = organisms->at(i);
+		Organism* organism = (*organisms)[i];
 		Point2D position = organism->GetPosition();
-		char visual = organisms->at(i)->GetVisual();
-		vector<char*>* row = screenBuffer->at(position.y);
-		char* cell = row->at(position.x);
+		char visual = (*organisms)[i]->GetVisual();
+
+		vector<char*>* row = (*screenBuffer)[position.y];
+
+		char* cell = (*row)[position.x];
 
 		*cell = visual;
 	}
@@ -58,19 +69,18 @@ void Displayer::UpdateBuffer() {
 
 void Displayer::DrawWorld() {
 	UpdateBuffer();
+	system("cls");
 
 	int height = screenBuffer->size();
-	for (int y = 0; y < height; y++)
+	for (int y = height-1; y >= 0; y--)
 	{
-		vector<char*>* row = screenBuffer->at(y);
+		vector<char*>* row = (*screenBuffer)[y];
 		int width = row->size();
 
 		for (int x = 0; x < width; x++)
 		{
-			cout << *row->at(x);
+			cout << *(*row)[x];
 		}
 		cout << endl;
 	}
-
-	
 }

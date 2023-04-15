@@ -71,9 +71,6 @@
     <ClInclude Include="Sheep.h">
       <Filter>Pliki nagłówkowe</Filter>
     </ClInclude>
-    <ClInclude Include="Array.h">
-      <Filter>Pliki nagłówkowe</Filter>
-    </ClInclude>
     <ClInclude Include="Comparable.h">
       <Filter>Pliki nagłówkowe</Filter>
     </ClInclude>

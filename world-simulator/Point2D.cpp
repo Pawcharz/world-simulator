@@ -3,7 +3,28 @@
 Point2D::Point2D() : x(0), y(0) {};
 
 Point2D::Point2D(int otherX, int otherY) : x(otherX), y(otherY) {};
-Point2D::Point2D(Point2D& other) : x(other.x), y(other.y) {};
+
+Point2D::Point2D(const Point2D& other) : x(other.x), y(other.y) {};
+
+Point2D& Point2D::operator=(Point2D& other) {
+	//Point2D tmp = other;
+
+	x = other.x;
+	y = other.y;
+
+	return *this;
+}
+
+
+
+Point2D& Point2D::Random(Point2D& start, Point2D& end) {
+	int x = randomInteger(start.x, end.x);
+	int y = randomInteger(start.y, end.y);
+
+	Point2D* result = new Point2D(x, y);
+
+	return *result;
+}
 
 void Point2D::Add(Point2D& other) {
 	x += other.x;

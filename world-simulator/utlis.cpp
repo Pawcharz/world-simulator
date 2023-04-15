@@ -1,5 +1,8 @@
 #include "utlis.h"
 
+#include "Point2D.h"
+#include "World.h"
+
 float randomNumber() {
 	int base = rand();
 	float result = (float)base / (float)RAND_MAX;

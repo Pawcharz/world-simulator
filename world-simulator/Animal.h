@@ -6,13 +6,17 @@ using namespace std;
 
 class Animal: public Organism
 {
-//protected:
+protected:
+	void Attack(Organism* target);
+
+	void Multiplication();
+
+	void Collision(Organism* target);
+
 public:
 	Animal();
 
 	void Movement();
-
-	void Multiplication();
 
 	void Action();
 };

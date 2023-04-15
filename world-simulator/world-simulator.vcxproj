@@ -140,7 +140,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animal.h" />
-    <ClInclude Include="Array.h" />
     <ClInclude Include="Comparable.h" />
     <ClInclude Include="Displayer.h" />
     <ClInclude Include="Organism.h" />

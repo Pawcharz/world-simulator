@@ -7,8 +7,10 @@
 int main()
 {
     World* world = World::GetInstance();
-    world->Initialize(20, 20);
+    world->Initialize(5, 5);
 
-    Displayer* displayer = new Displayer();
+    Displayer* displayer = Displayer::GetInstance();
     displayer->DrawWorld();
+
+    world->Simulate();
 }

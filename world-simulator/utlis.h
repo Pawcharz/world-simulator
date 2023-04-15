@@ -1,5 +1,7 @@
 #pragma once
 #include <cstdlib>
+#include <vector>
+
 
 const int INVALID_INDEX = -1;
 
@@ -10,6 +12,8 @@ void customSwap(T** pointerA, T** pointerB) {
 	*pointerA = *pointerB;
 	*pointerB = temp;
 }
+
+
 
 float randomNumber();
 
