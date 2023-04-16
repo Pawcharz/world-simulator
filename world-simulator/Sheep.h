@@ -3,10 +3,11 @@
 
 class Sheep : public Animal
 {
+
 public:
 	Sheep();
 
-	~Sheep();
+	//~Sheep();
 
 	//void Movement();
 };

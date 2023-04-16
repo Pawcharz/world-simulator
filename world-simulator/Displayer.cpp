@@ -13,10 +13,10 @@ Displayer::Displayer() {
 
 	screenBuffer = new vector<vector<char*>*>(size.y);
 
-	for (int y = 0; y < size.x; y++)
+	for (int y = 0; y < size.y; y++)
 	{
 		vector<char*>* rowTmp = new vector<char*>(size.x);
-		for (int x = 0; x < size.y; x++)
+		for (int x = 0; x < size.x; x++)
 		{
 			(*rowTmp)[x] = new char('*');
 		}
@@ -79,7 +79,7 @@ void Displayer::DrawWorld() {
 
 		for (int x = 0; x < width; x++)
 		{
-			cout << *(*row)[x];
+			cout << *(*row)[x] << ' ';
 		}
 		cout << endl;
 	}

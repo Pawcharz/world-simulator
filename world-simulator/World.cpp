@@ -37,14 +37,27 @@ void World::SetSize(int widthArg, int heightArg) {
 void World::Initialize(int widthArg, int heightArg) {
 	SetSize(widthArg, heightArg);
 
-	const int WOLFS_COUNT = 4;
-	const int SHEEPS_COUNT = 6;
+	const int WOLFS_COUNT = 2;
+	const int SHEEPS_COUNT = 4;
 	const int FOXES_COUNT = 2;
 	const int TURTLES_COUNT = 2;
 	const int ANTELOPES_COUNT = 2;
 
-	CreateSpecies<Wolf>(WOLFS_COUNT);
+
+	const int GRASS_COUNT = 1;
+	const int SOW_THISTLE_COUNT = 1;
+	const int GUARANA_COUNT = 3;
+	const int BELLADONNA_COUNT = 2;
+	const int SOSNOWSKYS_HOGWEED_COUNT = 2;
+
+	//CreateSpecies<Wolf>(WOLFS_COUNT);
+	//CreateSpecies<Grass>(GRASS_COUNT);
 	CreateSpecies<Sheep>(SHEEPS_COUNT);
+	//CreateSpecies<SowThistle>(SOW_THISTLE_COUNT);
+	CreateSpecies<Guarana>(GUARANA_COUNT);
+
+	//CreateSpecies<Wolf>(1);
+	//CreateSpecies<Grass>(1);
 }
 
 template<typename ElementType>
@@ -60,23 +73,29 @@ bool vectorIncludes(vector<ElementType>* vector, ElementType elem) {
 Organism* getQuickestOrganism(vector<Organism*>* all, vector<Organism*>* excluded) {
 	int length = all->size();
 
-	Organism* best = (*all)[0];
+	Organism* best = nullptr;
 
-	for (int i = 1; i < length; i++)
+	for (int i = 0; i < length; i++)
 	{
 		Organism* newOrganism = (*all)[i];
-		int currentInitiative = best->GetInitiative();
-		int newInitiative = newOrganism->GetInitiative();
 
 		bool includes = vectorIncludes<Organism*>(excluded, newOrganism);
 
 		if (!includes) {
-			if (newInitiative > currentInitiative) {
+			if (best == nullptr) {
 				best = newOrganism;
 			}
-			else if (newInitiative == currentInitiative && newOrganism->GetAge() > best->GetAge()) {
+			else {
+				int currentInitiative = best->GetInitiative();
+				int newInitiative = newOrganism->GetInitiative();
 
-				best = newOrganism;
+				if (newInitiative > currentInitiative) {
+					best = newOrganism;
+				}
+				else if (newInitiative == currentInitiative && newOrganism->GetAge() > best->GetAge()) {
+
+					best = newOrganism;
+				}
 			}
 		}
 	}
@@ -94,6 +113,9 @@ void World::SortOrganisms() {
 
 		sorted->push_back(best);
 	}
+
+	delete organisms;
+	organisms = sorted;
 }
 
 bool World::IsWithinBorders(Point2D& position) {
@@ -217,7 +239,7 @@ void World::CleanDeadOrganisms() {
 void World::MakeTurn() {
 	// Sort organisms by initiative
 	int initialOrganismsCount = organisms->size();
-	//qsort(organisms, );
+	SortOrganisms();
 
 	// Shouldnt break the order of organisms as we are marking deadAnimals as nullptr and new ones are created at the ond of the array (out of the initialOrganismsCount)
 	for (int i = 0; i < initialOrganismsCount; i++)
@@ -256,5 +278,3 @@ void World::Simulate() {
 	}
 	
 }
-
-

@@ -7,8 +7,14 @@
 #include "utlis.h"
 #include "Point2D.h"
 
+
 #include "Wolf.h"
 #include "Sheep.h"
+
+#include "Grass.h"
+#include "SowThistle.h"
+#include "Guarana.h"
+
 
 
 using namespace std;

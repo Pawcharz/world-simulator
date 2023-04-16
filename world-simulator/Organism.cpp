@@ -8,6 +8,14 @@ Organism::Organism(): age(0) {
 	state = ALIVE;
 }
 
+Organism::Organism(Point2D& initialPosition) : age(0) {
+	position = new Point2D(initialPosition);
+
+	visual = 'O';
+
+	state = ALIVE;
+}
+
 void Organism::Action() {
 	cout << "BASE CLASS ACTION" << endl;;
 }
@@ -16,6 +24,17 @@ void Organism::Collision(Organism* foundOrganism) {
 	cout << "BASE CLASS COLLISION" << endl;
 }
 
+bool Organism::Defend(Organism* attacker) {
+	if (attacker->GetStrength() >= strength) {
+		return false;
+	}
+	return true;
+}
+
+
+void Organism::SetStrength(int newStrength) {
+	strength = newStrength;
+}
 
 int Organism::GetStrength() {
 	return strength;
@@ -31,6 +50,7 @@ char Organism::GetVisual() {
 
 
 void Organism::SetPosition(Point2D& newPosition) {
+	//delete position;
 	*position = newPosition;
 }
 

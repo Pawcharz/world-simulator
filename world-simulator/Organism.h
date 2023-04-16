@@ -27,13 +27,21 @@ public:
 
 	Organism();
 
+	Organism(Point2D& initialPosition);
+
 	virtual void Action();
 
+	// Always running for the organism entering field
 	virtual void Collision(Organism* foundOrganism);
 
+	virtual bool Defend(Organism* attacker);
 
+	// Always running for the organism in which field other organism entered
+	//virtual void ReactToCollision(Organism* enteringOrganism);
 
 	virtual char GetVisual();
+
+	void SetStrength(int newStrength);
 
 	int GetStrength();
 

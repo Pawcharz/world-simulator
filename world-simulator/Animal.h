@@ -9,12 +9,16 @@ class Animal: public Organism
 protected:
 	void Attack(Organism* target);
 
-	void Multiplication();
+	bool virtual Defend(Organism* attacker);
+
+	//void Multiplication();
 
 	void Collision(Organism* target);
 
 public:
 	Animal();
+
+	//~Animal();
 
 	void Movement();
 

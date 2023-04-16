@@ -4,7 +4,8 @@
 using namespace std;
 
 Animal::Animal() {
-	//Organism::Organism();
+
+	visual = 'A';
 }
 
 
@@ -39,13 +40,19 @@ void Animal::Collision(Organism* target) {
 void Animal::Attack(Organism* target) {
 	World* world = World::GetInstance();
 
-	if (strength >= target->GetStrength()) {
+	bool defended = target->Defend(this);
+	
+	if (!defended) {
+		position = new Point2D(target->GetPosition());
 		world->KillOrganism(target);
 	}
 	else {
-		position = new Point2D(target->GetPosition());
 		world->KillOrganism(this);
 	}
+}
+
+bool Animal::Defend(Organism* attacker) {
+	return Organism::Defend(attacker);
 }
 
 void Animal::Action() {
