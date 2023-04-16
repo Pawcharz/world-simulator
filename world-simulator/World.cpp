@@ -47,14 +47,15 @@ void World::Initialize(int widthArg, int heightArg) {
 	const int GRASS_COUNT = 1;
 	const int SOW_THISTLE_COUNT = 1;
 	const int GUARANA_COUNT = 3;
-	const int BELLADONNA_COUNT = 2;
+	const int BELLADONNA_COUNT = 10;
 	const int SOSNOWSKYS_HOGWEED_COUNT = 2;
 
 	//CreateSpecies<Wolf>(WOLFS_COUNT);
 	//CreateSpecies<Grass>(GRASS_COUNT);
-	CreateSpecies<Sheep>(SHEEPS_COUNT);
+	//CreateSpecies<Sheep>(SHEEPS_COUNT);
 	//CreateSpecies<SowThistle>(SOW_THISTLE_COUNT);
-	CreateSpecies<Guarana>(GUARANA_COUNT);
+	//CreateSpecies<Guarana>(GUARANA_COUNT);
+	CreateSpecies<Belladonna>(BELLADONNA_COUNT);
 
 	//CreateSpecies<Wolf>(1);
 	//CreateSpecies<Grass>(1);
@@ -159,6 +160,25 @@ vector<Point2D>* World::GetNeighbouringFields(Point2D& position) {
 	}
 
 	return neighbours;
+}
+
+vector<Point2D>* World::GetNeighbouringFreeFields(Point2D& position) {
+
+	vector<Point2D>* fields = GetNeighbouringFields(position);
+	int length = fields->size();
+
+	vector<Point2D>* free = new vector<Point2D>();
+
+	for (int i = 0; i < length; i++)
+	{
+		Point2D position = (*fields)[i];
+		Organism* organism = GetOrganismAtPosition(position);
+		if (organism == nullptr) {
+			free->push_back(position);
+		}
+	}
+
+	return free;
 }
 
 

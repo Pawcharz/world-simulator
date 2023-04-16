@@ -9,6 +9,8 @@ public:
 	Guarana();
 
 	~Guarana();
+
+	void virtual Spread();
 };
 
 

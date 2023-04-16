@@ -4,6 +4,8 @@
 const float PLANT_PROBABILITY_TO_SPREAD = 0.1;
 Plant::Plant() {
 	initiative = 0;
+
+	visual = 'P';
 }
 
 Plant::Plant(Point2D& initialPosition):Organism(initialPosition) {
@@ -26,9 +28,12 @@ Point2D* Plant::GetSpreadPosition() {
 		return nullptr;
 	}
 
-	vector<Point2D>* neighbouringFields = world->GetNeighbouringFields(*position);
+	vector<Point2D>* neighbouringFields = world->GetNeighbouringFreeFields(*position);
 	int length = neighbouringFields->size();
 
+	if (length == 0) {
+ 		return nullptr;
+	}
 	int index = randomInteger(0, length - 1);
 	Point2D* positionToSpread = new Point2D((*neighbouringFields)[index]);
 

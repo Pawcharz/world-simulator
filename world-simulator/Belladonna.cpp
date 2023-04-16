@@ -7,3 +7,14 @@ Belladonna::Belladonna() {
 
 	visual = 'B';
 }
+
+void Belladonna::Spread() {
+	Point2D* spreadPosition = GetSpreadPosition();
+	if (spreadPosition != nullptr) {
+		World* world = World::GetInstance();
+
+		Belladonna* newPlant = new Belladonna();
+		newPlant->SetPosition(*spreadPosition);
+		world->GetOrganisms()->push_back(newPlant);
+	}
+}

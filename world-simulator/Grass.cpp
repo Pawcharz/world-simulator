@@ -8,3 +8,14 @@ Grass::Grass() {
 
 	visual = 'G';
 }
+
+void Grass::Spread() {
+	Point2D* spreadPosition = GetSpreadPosition();
+	if (spreadPosition != nullptr) {
+		World* world = World::GetInstance();
+
+		Grass* newPlant = new Grass();
+		newPlant->SetPosition(*spreadPosition);
+		world->GetOrganisms()->push_back(newPlant);
+	}
+}

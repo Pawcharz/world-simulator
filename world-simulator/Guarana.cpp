@@ -18,3 +18,14 @@ bool Guarana::Defend(Organism* attacker) {
 	}
 	return true;
 }
+
+void Guarana::Spread() {
+	Point2D* spreadPosition = GetSpreadPosition();
+	if (spreadPosition != nullptr) {
+		World* world = World::GetInstance();
+
+		Guarana* newPlant = new Guarana();
+		newPlant->SetPosition(*spreadPosition);
+		world->GetOrganisms()->push_back(newPlant);
+	}
+}

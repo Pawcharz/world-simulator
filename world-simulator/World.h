@@ -14,6 +14,7 @@
 #include "Grass.h"
 #include "SowThistle.h"
 #include "Guarana.h"
+#include "Belladonna.h"
 
 
 
@@ -85,6 +86,8 @@ public:
 
 
 	vector<Point2D>* GetNeighbouringFields(Point2D& position);
+
+	vector<Point2D>* GetNeighbouringFreeFields(Point2D& position);
 
 
 	Point2D& GetSize();

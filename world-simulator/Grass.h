@@ -8,6 +8,8 @@ public:
 	Grass();
 
 	~Grass();
+
+	void virtual Spread();
 };
 
 

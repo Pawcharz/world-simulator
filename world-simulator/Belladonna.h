@@ -9,5 +9,7 @@ public:
 	Belladonna();
 
 	~Belladonna();
+
+	void virtual Spread();
 };
 
