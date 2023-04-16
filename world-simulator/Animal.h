@@ -8,13 +8,13 @@ class Animal: public Organism
 {
 protected:
 
-	vector<Point2D>* GetPositionsToMove();
+	virtual vector<Point2D>* GetPositionsToMove();
 
 	void Collision(Organism* target);
 
 	void Attack(Organism* target);
 
-	bool virtual Defend(Organism* attacker);
+	virtual bool Defend(Organism* attacker);
 
 
 public:

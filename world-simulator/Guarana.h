@@ -10,7 +10,7 @@ public:
 
 	~Guarana();
 
-	void virtual Spread();
+	void Spread();
 };
 
 

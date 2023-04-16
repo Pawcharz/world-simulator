@@ -9,7 +9,7 @@ public:
 
 	~Grass();
 
-	void virtual Spread();
+	void Spread();
 };
 
 

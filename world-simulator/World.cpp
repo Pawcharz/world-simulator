@@ -50,15 +50,18 @@ void World::Initialize(int widthArg, int heightArg) {
 	const int BELLADONNA_COUNT = 10;
 	const int SOSNOWSKYS_HOGWEED_COUNT = 2;
 
-	//CreateSpecies<Wolf>(WOLFS_COUNT);
-	//CreateSpecies<Grass>(GRASS_COUNT);
-	//CreateSpecies<Sheep>(SHEEPS_COUNT);
-	//CreateSpecies<SowThistle>(SOW_THISTLE_COUNT);
-	//CreateSpecies<Guarana>(GUARANA_COUNT);
-	//CreateSpecies<Belladonna>(BELLADONNA_COUNT);
+	/*CreateSpecies<Wolf>(WOLFS_COUNT);
+	CreateSpecies<Grass>(GRASS_COUNT);
+	CreateSpecies<Fox>(FOXES_COUNT);
+
+	CreateSpecies<Sheep>(SHEEPS_COUNT);
+	CreateSpecies<SowThistle>(SOW_THISTLE_COUNT);
+	CreateSpecies<Guarana>(GUARANA_COUNT);
+	CreateSpecies<Belladonna>(BELLADONNA_COUNT);*/
 
 	CreateSpecies<Wolf>(2);
-	CreateSpecies<Grass>(1);
+	CreateSpecies<Fox>(3);
+	CreateSpecies<Grass>(2);
 }
 
 template<typename ElementType>

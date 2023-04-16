@@ -10,6 +10,6 @@ public:
 
 	~Belladonna();
 
-	void virtual Spread();
+	void Spread();
 };
 
