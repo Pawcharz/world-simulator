@@ -10,15 +10,27 @@ Animal::Animal() {
 
 
 
-void Animal::Movement() {
+vector<Point2D>* Animal::GetPositionsToMove() {
 	World* world = World::GetInstance();
 
 	vector<Point2D>* positions = world->GetNeighbouringFields(*position);
 
-	int index = randomInteger(0, positions->size());
+	return positions;
+}
 
-	//*position = positions[index];
-	Point2D newPosition = (*positions)[index];
+void Animal::Movement() {
+
+	World* world = World::GetInstance();
+
+	vector<Point2D>* availablePositions = GetPositionsToMove();
+	int positionsCount = availablePositions->size();
+	if (positionsCount == 0) {
+		return;
+	}
+
+	int index = randomInteger(0, positionsCount);
+
+	Point2D newPosition = (*availablePositions)[index];
 
 	Organism* foundOrganism = world->GetOrganismAtPosition(newPosition);
 
@@ -30,6 +42,7 @@ void Animal::Movement() {
 		position = new Point2D(newPosition);
 	}
 }
+
 
 void Animal::Collision(Organism* target) {
 	// Check if the same type

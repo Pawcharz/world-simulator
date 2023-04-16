@@ -131,6 +131,7 @@
     <ClCompile Include="Belladonna.cpp" />
     <ClCompile Include="Comparable.cpp" />
     <ClCompile Include="Displayer.cpp" />
+    <ClCompile Include="Fox.cpp" />
     <ClCompile Include="Grass.cpp" />
     <ClCompile Include="Guarana.cpp" />
     <ClCompile Include="Organism.cpp" />
@@ -148,6 +149,7 @@
     <ClInclude Include="Belladonna.h" />
     <ClInclude Include="Comparable.h" />
     <ClInclude Include="Displayer.h" />
+    <ClInclude Include="Fox.h" />
     <ClInclude Include="Grass.h" />
     <ClInclude Include="Guarana.h" />
     <ClInclude Include="Organism.h" />

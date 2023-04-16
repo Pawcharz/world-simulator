@@ -1,12 +1,13 @@
 #pragma once
 #include "Animal.h"
 
-class Wolf : public Animal
+class Fox : public Animal
 {
-	
-public:
-	Wolf();
 
-	~Wolf();
+public:
+	Fox();
+
+	~Fox();
 };
+
 

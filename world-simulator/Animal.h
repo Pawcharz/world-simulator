@@ -7,13 +7,15 @@ using namespace std;
 class Animal: public Organism
 {
 protected:
+
+	vector<Point2D>* GetPositionsToMove();
+
+	void Collision(Organism* target);
+
 	void Attack(Organism* target);
 
 	bool virtual Defend(Organism* attacker);
 
-	//void Multiplication();
-
-	void Collision(Organism* target);
 
 public:
 	Animal();
