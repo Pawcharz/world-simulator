@@ -16,6 +16,14 @@ enum ORGANISM_STATE {
 	DEAD,
 	ALIVE
 };
+
+enum ORGANISM_SPECIES {
+	WOLF,
+	SHEEP,
+	FOX,
+
+};
+
 class Organism
 {
 protected:
