@@ -5,6 +5,12 @@
 
 using namespace std;
 
+enum DEFENCE_RESULT {
+	TARGET_KILLED,
+	ATTACKER_KILLED,
+	REFLECTED
+};
+
 enum ORGANISM_STATE {
 	DEAD,
 	ALIVE
@@ -34,7 +40,7 @@ public:
 	// Always running for the organism entering field
 	virtual void Collision(Organism* foundOrganism);
 
-	virtual bool Defend(Organism* attacker);
+	virtual DEFENCE_RESULT Defend(Organism* attacker);
 
 	// Always running for the organism in which field other organism entered
 	//virtual void ReactToCollision(Organism* enteringOrganism);

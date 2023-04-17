@@ -14,7 +14,7 @@ protected:
 
 	void Attack(Organism* target);
 
-	virtual bool Defend(Organism* attacker);
+	virtual DEFENCE_RESULT Defend(Organism* attacker);
 
 
 public:
@@ -22,7 +22,7 @@ public:
 
 	//~Animal();
 
-	void Movement();
+	virtual void Movement();
 
 	void Action();
 };

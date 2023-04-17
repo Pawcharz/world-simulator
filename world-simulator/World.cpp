@@ -53,15 +53,18 @@ void World::Initialize(int widthArg, int heightArg) {
 	/*CreateSpecies<Wolf>(WOLFS_COUNT);
 	CreateSpecies<Grass>(GRASS_COUNT);
 	CreateSpecies<Fox>(FOXES_COUNT);
+	CreateSpecies<Turtle>(TURTLES_COUNT);
 
 	CreateSpecies<Sheep>(SHEEPS_COUNT);
 	CreateSpecies<SowThistle>(SOW_THISTLE_COUNT);
 	CreateSpecies<Guarana>(GUARANA_COUNT);
 	CreateSpecies<Belladonna>(BELLADONNA_COUNT);*/
 
-	CreateSpecies<Wolf>(2);
-	CreateSpecies<Fox>(3);
-	CreateSpecies<Grass>(2);
+
+	//CreateSpecies<Wolf>(2);
+	//CreateSpecies<Fox>(3);
+	//CreateSpecies<Grass>(2);
+	CreateSpecies<Turtle>(3);
 }
 
 template<typename ElementType>

@@ -24,11 +24,11 @@ void Organism::Collision(Organism* foundOrganism) {
 	cout << "BASE CLASS COLLISION" << endl;
 }
 
-bool Organism::Defend(Organism* attacker) {
+DEFENCE_RESULT Organism::Defend(Organism* attacker) {
 	if (attacker->GetStrength() >= strength) {
-		return false;
+		return TARGET_KILLED;
 	}
-	return true;
+	return ATTACKER_KILLED;
 }
 
 

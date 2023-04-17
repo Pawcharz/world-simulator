@@ -3,7 +3,7 @@
 
 class Guarana : public Plant
 {
-	bool Defend(Organism* attacker);
+	DEFENCE_RESULT Defend(Organism* attacker);
 
 public:
 	Guarana();

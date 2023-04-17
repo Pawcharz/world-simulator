@@ -10,13 +10,13 @@ Guarana::Guarana() {
 }
 
 
-bool Guarana::Defend(Organism* attacker) {
+DEFENCE_RESULT Guarana::Defend(Organism* attacker) {
 	if (attacker->GetStrength() >= strength) {
 		int attackerStrength = attacker->GetStrength();
 		attacker->SetStrength(attackerStrength + 3);
-		return false;
+		return TARGET_KILLED;
 	}
-	return true;
+	return ATTACKER_KILLED;
 }
 
 void Guarana::Spread() {

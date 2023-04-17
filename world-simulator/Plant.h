@@ -11,7 +11,7 @@ protected:
 
 	void Sow();
 
-	virtual bool Defend(Organism* attacker);
+	virtual DEFENCE_RESULT Defend(Organism* attacker);
 
 	Point2D* GetSpreadPosition();
 public:

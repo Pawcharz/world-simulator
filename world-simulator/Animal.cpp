@@ -53,18 +53,18 @@ void Animal::Collision(Organism* target) {
 void Animal::Attack(Organism* target) {
 	World* world = World::GetInstance();
 
-	bool defended = target->Defend(this);
+	DEFENCE_RESULT result = target->Defend(this);
 	
-	if (!defended) {
+	if (result == TARGET_KILLED) {
 		position = new Point2D(target->GetPosition());
 		world->KillOrganism(target);
 	}
-	else {
+	else if (result == ATTACKER_KILLED) {
 		world->KillOrganism(this);
 	}
 }
 
-bool Animal::Defend(Organism* attacker) {
+DEFENCE_RESULT Animal::Defend(Organism* attacker) {
 	return Organism::Defend(attacker);
 }
 

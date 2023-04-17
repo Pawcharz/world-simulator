@@ -14,7 +14,7 @@ Plant::Plant(Point2D& initialPosition):Organism(initialPosition) {
 	visual = 'P';
 }
 
-bool Plant::Defend(Organism* attacker) {
+DEFENCE_RESULT Plant::Defend(Organism* attacker) {
 	return Organism::Defend(attacker);
 }
 // Returns position to which Plant should spread

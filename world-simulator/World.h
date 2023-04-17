@@ -11,6 +11,7 @@
 #include "Wolf.h"
 #include "Sheep.h"
 #include "Fox.h"
+#include "Turtle.h"
 
 #include "Grass.h"
 #include "SowThistle.h"

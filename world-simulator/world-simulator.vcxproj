@@ -138,6 +138,7 @@
     <ClCompile Include="Plant.cpp" />
     <ClCompile Include="Sheep.cpp" />
     <ClCompile Include="SowThistle.cpp" />
+    <ClCompile Include="Turtle.cpp" />
     <ClCompile Include="utlis.cpp" />
     <ClCompile Include="Point2D.cpp" />
     <ClCompile Include="Wolf.cpp" />
@@ -156,6 +157,7 @@
     <ClInclude Include="Plant.h" />
     <ClInclude Include="Sheep.h" />
     <ClInclude Include="SowThistle.h" />
+    <ClInclude Include="Turtle.h" />
     <ClInclude Include="utlis.h" />
     <ClInclude Include="Point2D.h" />
     <ClInclude Include="Wolf.h" />
