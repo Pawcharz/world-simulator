@@ -8,6 +8,7 @@ Antilope::Antilope() {
 	strength = 4;
 	initiative = 4;
 
+	species = ANTILOPE;
 	visual = '&';
 }
 

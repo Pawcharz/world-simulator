@@ -3,6 +3,7 @@
 Organism::Organism(): age(0) {
 	position = new Point2D(0, 0);
 
+	species = UNKNOWN;
 	visual = 'O';
 
 	state = ALIVE;
@@ -11,6 +12,7 @@ Organism::Organism(): age(0) {
 Organism::Organism(Point2D& initialPosition) : age(0) {
 	position = new Point2D(initialPosition);
 
+	species = UNKNOWN;
 	visual = 'O';
 
 	state = ALIVE;

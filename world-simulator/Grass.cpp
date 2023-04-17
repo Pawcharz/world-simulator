@@ -2,10 +2,10 @@
 #include "World.h"
 
 Grass::Grass() {
-	Plant::Plant();
 
 	strength = 0;
 
+	species = GRASS;
 	visual = 'G';
 }
 

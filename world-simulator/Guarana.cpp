@@ -2,10 +2,10 @@
 #include "World.h"
 
 Guarana::Guarana() {
-	Plant::Plant();
 
 	strength = 0;
 
+	species = GUARANA;
 	visual = 'R';
 }
 

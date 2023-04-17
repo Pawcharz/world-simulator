@@ -5,6 +5,7 @@ Belladonna::Belladonna() {
 
 	strength = 99;
 
+	species = BELLADONNA;
 	visual = 'B';
 }
 

@@ -2,10 +2,10 @@
 #include "World.h"
 
 SowThistle::SowThistle() {
-	Plant::Plant();
 
 	strength = 0;
 
+	species = SOW_THISTLE;
 	visual = 'T';
 }
 

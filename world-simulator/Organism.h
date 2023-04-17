@@ -21,7 +21,16 @@ enum ORGANISM_SPECIES {
 	WOLF,
 	SHEEP,
 	FOX,
+	TURTLE,
+	ANTILOPE,
 
+	GRASS,
+	SOW_THISTLE,
+	GUARANA,
+	BELLADONNA,
+	SOSNOWSKYS_HOGWEED,
+
+	UNKNOWN
 };
 
 class Organism
@@ -34,6 +43,7 @@ protected:
 
 	Point2D* position;
 
+	ORGANISM_SPECIES species;
 	char visual;
 
 	ORGANISM_STATE state;
