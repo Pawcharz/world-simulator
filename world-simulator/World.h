@@ -12,6 +12,7 @@
 #include "Sheep.h"
 #include "Fox.h"
 #include "Turtle.h"
+#include "Antilope.h"
 
 #include "Grass.h"
 #include "SowThistle.h"
@@ -86,6 +87,8 @@ public:
 	void Simulate();
 
 
+	
+	vector<Point2D>* GetFieldsAtRadius(Point2D& position, int radius = 1);
 
 	vector<Point2D>* GetNeighbouringFields(Point2D& position);
 

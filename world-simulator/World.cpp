@@ -64,7 +64,8 @@ void World::Initialize(int widthArg, int heightArg) {
 	//CreateSpecies<Wolf>(2);
 	//CreateSpecies<Fox>(3);
 	//CreateSpecies<Grass>(2);
-	CreateSpecies<Turtle>(3);
+	CreateSpecies<Antilope>(3);
+	CreateSpecies<Wolf>(2);
 }
 
 template<typename ElementType>
@@ -141,31 +142,41 @@ bool World::IsWithinBorders(Point2D& position) {
 	return true;
 }
 
-vector<Point2D>* World::GetNeighbouringFields(Point2D& position) {
+vector<Point2D>* World::GetFieldsAtRadius(Point2D& center, int radius) {
 
 	vector<Point2D>* neighbours = new vector<Point2D>();
 
-	Point2D top = position.GetTopPosition();
+	Point2D top = center;
+	Point2D bottom = center;
+	Point2D left = center;
+	Point2D right = center;
+
+	for (int i = 0; i < radius; i++)
+	{
+		top = top.GetTopPosition();
+		bottom = bottom.GetBottomPosition();
+		left = left.GetLeftPosition();
+		right = right.GetRightPosition();
+	}
+	
 	if (IsWithinBorders(top)) {
 		neighbours->push_back(top);
 	}
-
-	Point2D bottom = position.GetBottomPosition();
 	if (IsWithinBorders(bottom)) {
 		neighbours->push_back(bottom);
 	}
-
-	Point2D left = position.GetLeftPosition();
 	if (IsWithinBorders(left)) {
 		neighbours->push_back(left);
 	}
-
-	Point2D right = position.GetRightPosition();
 	if (IsWithinBorders(right)) {
 		neighbours->push_back(right);
 	}
-
 	return neighbours;
+}
+
+
+vector<Point2D>* World::GetNeighbouringFields(Point2D& position) {
+	return GetFieldsAtRadius(position);
 }
 
 vector<Point2D>* World::GetNeighbouringFreeFields(Point2D& position) {

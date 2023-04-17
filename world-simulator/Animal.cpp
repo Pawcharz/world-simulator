@@ -62,6 +62,22 @@ void Animal::Attack(Organism* target) {
 	else if (result == ATTACKER_KILLED) {
 		world->KillOrganism(this);
 	}
+	else if (result == TARGET_ESCAPED) {
+
+		vector<Point2D>* availablePositions = world->GetNeighbouringFields(target->GetPosition());
+		int positionsCount = availablePositions->size();
+		
+		if (positionsCount == 0) {
+			position = new Point2D(target->GetPosition());
+			world->KillOrganism(target);
+
+			return;
+		}
+
+		int index = randomInteger(0, positionsCount);
+
+		target->SetPosition(target->GetPosition());
+	}
 }
 
 DEFENCE_RESULT Animal::Defend(Organism* attacker) {

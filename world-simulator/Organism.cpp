@@ -17,7 +17,7 @@ Organism::Organism(Point2D& initialPosition) : age(0) {
 }
 
 void Organism::Action() {
-	cout << "BASE CLASS ACTION" << endl;;
+	cout << "BASE CLASS ACTION" << endl;
 }
 
 void Organism::Collision(Organism* foundOrganism) {
