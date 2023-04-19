@@ -64,8 +64,10 @@ void World::Initialize(int widthArg, int heightArg) {
 	//CreateSpecies<Wolf>(2);
 	//CreateSpecies<Fox>(3);
 	//CreateSpecies<Grass>(2);
-	CreateSpecies<Antilope>(3);
-	CreateSpecies<Wolf>(2);
+	//CreateSpecies<Antilope>(1);
+	//CreateSpecies<Wolf>(1);
+
+	CreateOrganism<Human>();
 }
 
 template<typename ElementType>
@@ -173,7 +175,7 @@ vector<Point2D>* World::GetFieldsAtRadius(Point2D& center, int radius) {
 	}
 	return neighbours;
 }
-
+ 
 
 vector<Point2D>* World::GetNeighbouringFields(Point2D& position) {
 	return GetFieldsAtRadius(position);
@@ -305,13 +307,13 @@ void World::Simulate() {
 
 	char pressed = NULL;
 
-	while (pressed != 'q') {
-		pressed = getchar();
+	while (true) {
+		//pressed = getchar();
 
-		if (pressed == ' ') {
+		//if (pressed == ' ') {
 			MakeTurn();
 			displayer->DrawWorld();
-		}
+		//}
 	}
 	
 }

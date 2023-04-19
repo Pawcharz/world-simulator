@@ -18,11 +18,14 @@ enum ORGANISM_STATE {
 };
 
 enum ORGANISM_SPECIES {
+	HUMAN,
+
 	WOLF,
 	SHEEP,
 	FOX,
 	TURTLE,
 	ANTILOPE,
+	CYBER_SHEEP,
 
 	GRASS,
 	SOW_THISTLE,
@@ -63,6 +66,8 @@ public:
 
 	// Always running for the organism in which field other organism entered
 	//virtual void ReactToCollision(Organism* enteringOrganism);
+
+	ORGANISM_SPECIES GetSpecies();
 
 	virtual char GetVisual();
 

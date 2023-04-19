@@ -46,6 +46,10 @@ int Organism::GetInitiative() {
 	return initiative;
 }
 
+ORGANISM_SPECIES Organism::GetSpecies() {
+	return species;
+}
+
 char Organism::GetVisual() {
 	return visual;
 }

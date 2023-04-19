@@ -8,6 +8,8 @@
 #include "Point2D.h"
 
 
+#include "Human.h"
+
 #include "Wolf.h"
 #include "Sheep.h"
 #include "Fox.h"
@@ -38,8 +40,6 @@ private:
 	World();
 
 	void SetSize(int width, int height);
-
-	bool IsWithinBorders(Point2D& position);
 
 	template<typename T>
 	void CreateOrganism() {
@@ -73,8 +73,12 @@ private:
 	void SortOrganisms();
 
 public:
+	bool IsWithinBorders(Point2D& position);
+
 	Point2D& GetStartBorders();
 	Point2D& GetFinishBorders();
+
+
 
 	World(const World& other) = delete;
 
