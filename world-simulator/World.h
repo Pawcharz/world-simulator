@@ -3,12 +3,14 @@
 #include <iostream>
 #include <vector>
 
+#include "Displayer.h"
+
 #include "Organism.h"
 #include "utlis.h"
 #include "Point2D.h"
 
-
 #include "Human.h"
+
 
 #include "Wolf.h"
 #include "Sheep.h"
@@ -21,20 +23,22 @@
 #include "Guarana.h"
 #include "Belladonna.h"
 
-
-
 using namespace std;
+
+
 
 class World
 {
 private:
 
+	static World* worldInstance;
+
+	Displayer* displayer;
+
 	int height;
 	int width;
 
 	vector<Organism*>* organisms;
-
-	static World* worldInstance;
 
 	Human* player;
 

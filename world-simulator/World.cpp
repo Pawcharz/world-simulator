@@ -1,8 +1,6 @@
 #include "World.h"
-#include "Displayer.h"
 
 World* World::worldInstance = nullptr;
-
 
 
 World::~World() {
@@ -24,7 +22,6 @@ World* World::GetInstance()
 {
 	if (worldInstance == nullptr) {
 		worldInstance = new World();
-		return worldInstance;
 	}
 
 	return worldInstance;
@@ -37,6 +34,8 @@ void World::SetSize(int widthArg, int heightArg) {
 
 void World::Initialize(int widthArg, int heightArg) {
 	SetSize(widthArg, heightArg);
+
+	worldInstance->displayer = new Displayer();
 
 	const int WOLFS_COUNT = 2;
 	const int SHEEPS_COUNT = 4;
@@ -326,17 +325,13 @@ void World::MakeTurn() {
 }
 
 void World::Simulate() {
-	Displayer* displayer = Displayer::GetInstance();
+	//Displayer* displayer = Displayer::GetInstance();
 
-	char pressed = NULL;
+	displayer->DrawWorld();
 
 	while (player != nullptr) {
-		//pressed = getchar();
-
-		//if (pressed == ' ') {
-			MakeTurn();
-			displayer->DrawWorld();
-		//}
+		MakeTurn();
+		displayer->DrawWorld();
 	}
 	
 }

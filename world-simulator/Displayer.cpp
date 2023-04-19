@@ -1,6 +1,7 @@
 #include "Displayer.h"
+#include "World.h"
 
-Displayer* Displayer::displayerInstance = nullptr;
+//Displayer* Displayer::displayerInstance = nullptr;
 
 Displayer::Displayer() {
 	World* world = World::GetInstance();
@@ -23,16 +24,29 @@ Displayer::Displayer() {
 		(*screenBuffer)[y] = rowTmp;
 	}
 
+
+	logs = new vector<string>;
 }
 
-Displayer* Displayer::GetInstance() {
-	if (displayerInstance == nullptr) {
-		displayerInstance = new Displayer();
-		return displayerInstance;
-	}
+//Displayer* Displayer::GetInstance() {
+//	if (displayerInstance == nullptr) {
+//		displayerInstance = new Displayer();
+//		return displayerInstance;
+//	}
+//
+//	return displayerInstance;
+//}
 
-	return displayerInstance;
+
+
+void Displayer::AddLog(string logText) {
+	logs->push_back(logText);
 }
+
+void Displayer::ResetLogs() {
+	logs->clear();
+}
+
 
 void Displayer::UpdateBuffer() {
 	World* world = World::GetInstance();

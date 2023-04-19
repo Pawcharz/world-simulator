@@ -1,5 +1,5 @@
-#pragma 
-#include "World.h"
+#pragma once
+
 #include "utlis.h"
 #include "Wolf.h"
 #include "Sheep.h"
@@ -15,18 +15,26 @@ class Displayer
 private:
 	vector<vector<char*>*>* screenBuffer;
 
+	vector<string>* logs;
+
+
+	void ResetLogs();
+
 	void UpdateBuffer();
 
-	Displayer();
 
-	static Displayer* displayerInstance;
+	//static Displayer* displayerInstance;
 
 public:
 
-	static Displayer* GetInstance();
+	//static Displayer* GetInstance();
+
+	Displayer();
 
 	~Displayer();
 
 	void DrawWorld();
+
+	void AddLog(string logText);
 };
 
