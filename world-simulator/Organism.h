@@ -91,5 +91,8 @@ public:
 	void SetAge(int newAge);
 
 	int GetAge();
+
+
+	string GetDescribtion();
 };
 

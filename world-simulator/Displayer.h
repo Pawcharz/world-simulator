@@ -23,15 +23,11 @@ private:
 	void UpdateBuffer();
 
 
-	//static Displayer* displayerInstance;
-
 public:
-
-	//static Displayer* GetInstance();
 
 	Displayer();
 
-	~Displayer();
+	//~Displayer();
 
 	void DrawWorld();
 

@@ -81,3 +81,60 @@ void Organism::SetAge(int newAge) {
 int Organism::GetAge() {
 	return age;
 }
+
+string Organism::GetDescribtion() {
+	string description = "";
+
+	switch (species)
+	{
+	case(HUMAN):
+		description += "Human";
+		break;
+	case(WOLF):
+		description += "Wolf";
+		break;
+	case(SHEEP):
+		description += "Sheep";
+		break;
+	case(FOX):
+		description += "Fox";
+		break;
+	case(TURTLE):
+		description += "Turtle";
+		break;
+	case(ANTILOPE):
+		description += "Antilope";
+		break;
+	case(CYBER_SHEEP):
+		description += "Cyber Sheep";
+		break;
+	case(GRASS):
+		description += "Grass";
+		break;
+	case(SOW_THISTLE):
+		description += "Sow Thistle";
+		break;
+	case(GUARANA):
+		description += "Guarana";
+		break;
+	case(BELLADONNA):
+		description += "Belladonna";
+		break;
+	case(SOSNOWSKYS_HOGWEED):
+		description += "Sosnowsky's Hogweed";
+		break;
+	case(UNKNOWN):
+		description += "Unknown Organism";
+		break;
+	default:
+		break;
+	}
+
+	description += " at position (";
+	description += position->x + '0';
+	description += ", ";
+	description += position->y + '0';
+	description += ")";
+
+	return description;
+}

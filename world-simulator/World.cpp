@@ -44,27 +44,28 @@ void World::Initialize(int widthArg, int heightArg) {
 	const int ANTELOPES_COUNT = 2;
 
 
-	const int GRASS_COUNT = 1;
+	const int GRASS_COUNT = 2;
 	const int SOW_THISTLE_COUNT = 1;
-	const int GUARANA_COUNT = 3;
-	const int BELLADONNA_COUNT = 10;
+	const int GUARANA_COUNT = 2;
+	const int BELLADONNA_COUNT = 2;
 	const int SOSNOWSKYS_HOGWEED_COUNT = 2;
 
 	/*CreateSpecies<Wolf>(WOLFS_COUNT);
-	CreateSpecies<Grass>(GRASS_COUNT);
-	CreateSpecies<Fox>(FOXES_COUNT);
-	CreateSpecies<Turtle>(TURTLES_COUNT);
-
 	CreateSpecies<Sheep>(SHEEPS_COUNT);
+	CreateSpecies<Fox>(FOXES_COUNT);
+	CreateSpecies<Turtle>(TURTLES_COUNT);*/
+
+	CreateSpecies<Grass>(GRASS_COUNT);
 	CreateSpecies<SowThistle>(SOW_THISTLE_COUNT);
 	CreateSpecies<Guarana>(GUARANA_COUNT);
-	CreateSpecies<Belladonna>(BELLADONNA_COUNT);*/
+	CreateSpecies<Belladonna>(BELLADONNA_COUNT);
+	CreateSpecies<SosnowskysHogweed>(SOSNOWSKYS_HOGWEED_COUNT);
 
 
 	//CreateSpecies<Wolf>(2);
 	//CreateSpecies<Fox>(3);
-	//CreateSpecies<Grass>(2);
-	CreateSpecies<Antilope>(1);
+	//CreateSpecies<Grass>(10);
+	//CreateSpecies<Antilope>(1);
 	//CreateSpecies<Wolf>(1);
 
 	CreateHuman();
@@ -242,6 +243,10 @@ Organism* World::GetOrganismAtPosition(Point2D& position) {
 	return nullptr;
 }
 
+Displayer* World::GetDisplayer() {
+	return displayer;
+}
+
 
 void World::CreateHuman() {
 	player = new Human();
@@ -325,7 +330,6 @@ void World::MakeTurn() {
 }
 
 void World::Simulate() {
-	//Displayer* displayer = Displayer::GetInstance();
 
 	displayer->DrawWorld();
 
@@ -333,5 +337,4 @@ void World::Simulate() {
 		MakeTurn();
 		displayer->DrawWorld();
 	}
-	
 }

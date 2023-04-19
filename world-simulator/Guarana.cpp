@@ -27,5 +27,8 @@ void Guarana::Spread() {
 		Guarana* newPlant = new Guarana();
 		newPlant->SetPosition(*spreadPosition);
 		world->GetOrganisms()->push_back(newPlant);
+
+		Displayer* diplayer = world->GetDisplayer();
+		diplayer->AddLog(GetDescribtion() + " spread creating new " + newPlant->GetDescribtion());
 	}
 }

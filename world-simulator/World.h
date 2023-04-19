@@ -22,6 +22,7 @@
 #include "SowThistle.h"
 #include "Guarana.h"
 #include "Belladonna.h"
+#include "SosnowskysHogweed.h"
 
 using namespace std;
 
@@ -116,5 +117,7 @@ public:
 
 	void KillOrganism(Organism* target);
 
+
+	Displayer* GetDisplayer();
 };
 

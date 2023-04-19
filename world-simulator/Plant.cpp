@@ -17,6 +17,7 @@ Plant::Plant(Point2D& initialPosition):Organism(initialPosition) {
 DEFENCE_RESULT Plant::Defend(Organism* attacker) {
 	return Organism::Defend(attacker);
 }
+
 // Returns position to which Plant should spread
 // or nullptr if won't spread
 Point2D* Plant::GetSpreadPosition() {
@@ -50,6 +51,11 @@ void Plant::Spread() {
 		Plant* newPlant = new Plant();
 		newPlant->SetPosition(*spreadPosition);
 		world->GetOrganisms()->push_back(newPlant);
+
+
+		Displayer* diplayer = world->GetDisplayer();
+
+		diplayer->AddLog(GetDescribtion() + " spread creating new " + newPlant->GetDescribtion());
 	}
 }
 

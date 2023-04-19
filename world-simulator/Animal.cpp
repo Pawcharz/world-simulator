@@ -55,11 +55,17 @@ void Animal::Attack(Organism* target) {
 
 	DEFENCE_RESULT result = target->Defend(this);
 	
+	Displayer* displayer = world->GetDisplayer();
+
 	if (result == TARGET_KILLED) {
+		displayer->AddLog(GetDescribtion() + " killed " + target->GetDescribtion());
+
 		position = new Point2D(target->GetPosition());
 		world->KillOrganism(target);
 	}
 	else if (result == ATTACKER_KILLED) {
+		displayer->AddLog(target->GetDescribtion() + " killed " + GetDescribtion());
+
 		world->KillOrganism(this);
 	}
 	else if (result == TARGET_ESCAPED) {
@@ -69,6 +75,8 @@ void Animal::Attack(Organism* target) {
 		int positionsCount = availablePositions->size();
 		
 		if (positionsCount == 0) {
+			displayer->AddLog(GetDescribtion() + " killed " + target->GetDescribtion());
+
 			position = new Point2D(target->GetPosition());
 			world->KillOrganism(target);
 
@@ -76,6 +84,8 @@ void Animal::Attack(Organism* target) {
 		}
 
 		int index = randomInteger(0, positionsCount);
+
+		displayer->AddLog(target->GetDescribtion() + " escaped from attack of " + GetDescribtion());
 
 		target->SetPosition((*availablePositions)[index]);
 	}
