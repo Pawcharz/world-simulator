@@ -98,3 +98,19 @@ vector<Point2D>* Antilope::GetPositionsToMove() {
 
 	return positions;
 }
+
+void Antilope::Breed(Animal* partner) {
+	World* world = World::GetInstance();
+	Point2D* breedPosition = partner->GetBreedPosition(partner->GetPosition());
+
+	if (breedPosition == nullptr) {
+		return;
+	}
+
+	Antilope* child = new Antilope();
+	child->SetPosition(*breedPosition);
+	world->GetOrganisms()->push_back(child);
+
+	Displayer* displayer = world->GetDisplayer();
+	displayer->AddLog(GetDescribtion() + " and " + partner->GetDescribtion() + " born the new " + child->GetDescribtion());
+}

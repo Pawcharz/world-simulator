@@ -53,7 +53,8 @@ void World::Initialize(int widthArg, int heightArg) {
 	/*CreateSpecies<Wolf>(WOLFS_COUNT);
 	CreateSpecies<Sheep>(SHEEPS_COUNT);
 	CreateSpecies<Fox>(FOXES_COUNT);
-	CreateSpecies<Turtle>(TURTLES_COUNT);*/
+	CreateSpecies<Turtle>(TURTLES_COUNT);
+	CreateSpecies<Antilope>(ANTELOPES_COUNT);*/
 
 	/*CreateSpecies<Grass>(GRASS_COUNT);
 	CreateSpecies<SowThistle>(SOW_THISTLE_COUNT);
@@ -65,8 +66,10 @@ void World::Initialize(int widthArg, int heightArg) {
 	//CreateSpecies<Wolf>(2);
 	//CreateSpecies<Fox>(3);
 	//CreateSpecies<Grass>(10);
-	CreateSpecies<Antilope>(1);
+	//CreateSpecies<Antilope>(1);
 	//CreateSpecies<Wolf>(1);
+
+	CreateSpecies<Wolf>(5);
 
 	CreateHuman();
 }
