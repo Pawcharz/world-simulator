@@ -53,14 +53,17 @@ void Animal::Collision(Organism* target) {
 void Animal::Attack(Organism* target) {
 	World* world = World::GetInstance();
 
+	Point2D targetInitialPosition = target->GetPosition();
+
 	DEFENCE_RESULT result = target->Defend(this);
 	
 	Displayer* displayer = world->GetDisplayer();
 
+
 	if (result == TARGET_KILLED) {
 		displayer->AddLog(GetDescribtion() + " killed " + target->GetDescribtion());
 
-		position = new Point2D(target->GetPosition());
+		position = new Point2D(targetInitialPosition);
 		world->KillOrganism(target);
 	}
 	else if (result == ATTACKER_KILLED) {
@@ -71,7 +74,7 @@ void Animal::Attack(Organism* target) {
 	else if (result == TARGET_ESCAPED) {
 
 		// Should probably be impemented in the antilope class
-		vector<Point2D>* availablePositions = world->GetNeighbouringFields(target->GetPosition());
+		vector<Point2D>* availablePositions = world->GetNeighbouringFields(targetInitialPosition);
 		int positionsCount = availablePositions->size();
 		
 		if (positionsCount == 0) {
@@ -83,11 +86,14 @@ void Animal::Attack(Organism* target) {
 			return;
 		}
 
+		position = new Point2D(targetInitialPosition);
+
 		int index = randomInteger(0, positionsCount);
 
 		displayer->AddLog(target->GetDescribtion() + " escaped from attack of " + GetDescribtion());
 
 		target->SetPosition((*availablePositions)[index]);
+
 	}
 }
 

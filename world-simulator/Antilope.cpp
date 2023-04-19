@@ -47,11 +47,28 @@ void Antilope::Attack(Organism* target) {
 		world->KillOrganism(target);
 	}
 	else if (result == ATTACKER_KILLED) {
-		displayer->AddLog(target->GetDescribtion() + " killed " + GetDescribtion());
-		world->KillOrganism(this);
+
+		float random = randomNumber();
+		if (random <= ANTILOPE_ESCAPE_CHANCE) {
+
+			bool escapeSuccess = EscapeFromFight(*position);
+
+			if (escapeSuccess) {
+				displayer->AddLog(GetDescribtion() + " attacked and escaped from " + target->GetDescribtion());
+			}
+			else {
+				displayer->AddLog(target->GetDescribtion() + " killed " + GetDescribtion());
+				world->KillOrganism(this);
+			}
+		}
+		else {
+			displayer->AddLog(target->GetDescribtion() + " killed " + GetDescribtion());
+			world->KillOrganism(this);
+		}
 	}
 	else if (result == TARGET_ESCAPED) {
-		displayer->AddLog(GetDescribtion() + " attacked and escaped from " + target->GetDescribtion());
+		displayer->AddLog(target->GetDescribtion() + " escaped from " + GetDescribtion());
+		position = new Point2D(targetPosition);
 	}
 }
 

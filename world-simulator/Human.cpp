@@ -50,12 +50,16 @@ void Human::Action() {
 			displayer->AddLog("Wrong key, try again");
 			displayer->DrawWorld();
 		}
+
+		if (!world->IsWithinBorders(moveTo)) {
+			displayer->AddLog("Tried to move outside of the map, try again");
+			displayer->DrawWorld();
+			pressedKey = NULL;
+		}
 	}
 
 
-	if (!world->IsWithinBorders(moveTo)) {
-		return;
-	}
+	
 
 	Organism* target = world->GetOrganismAtPosition(moveTo);
 
