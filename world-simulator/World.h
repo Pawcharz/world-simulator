@@ -3,9 +3,13 @@
 #include <iostream>
 #include <vector>
 
+#include "Displayer.h"
+
 #include "Organism.h"
 #include "utlis.h"
 #include "Point2D.h"
+
+#include "Human.h"
 
 
 #include "Wolf.h"
@@ -18,28 +22,31 @@
 #include "SowThistle.h"
 #include "Guarana.h"
 #include "Belladonna.h"
-
-
+#include "SosnowskysHogweed.h"
 
 using namespace std;
+
+
 
 class World
 {
 private:
+
+	static World* worldInstance;
+
+	Displayer* displayer;
 
 	int height;
 	int width;
 
 	vector<Organism*>* organisms;
 
-	static World* worldInstance;
+	Human* player;
 
 
 	World();
 
 	void SetSize(int width, int height);
-
-	bool IsWithinBorders(Point2D& position);
 
 	template<typename T>
 	void CreateOrganism() {
@@ -66,6 +73,9 @@ private:
 		}
 	}
 
+	void CreateHuman();
+
+
 	void MakeTurn();
 
 	void CleanDeadOrganisms();
@@ -73,8 +83,12 @@ private:
 	void SortOrganisms();
 
 public:
+	bool IsWithinBorders(Point2D& position);
+
 	Point2D& GetStartBorders();
 	Point2D& GetFinishBorders();
+
+
 
 	World(const World& other) = delete;
 
@@ -103,5 +117,7 @@ public:
 
 	void KillOrganism(Organism* target);
 
+
+	Displayer* GetDisplayer();
 };
 

@@ -16,6 +16,26 @@ enum ORGANISM_STATE {
 	DEAD,
 	ALIVE
 };
+
+enum ORGANISM_SPECIES {
+	HUMAN,
+
+	WOLF,
+	SHEEP,
+	FOX,
+	TURTLE,
+	ANTILOPE,
+	CYBER_SHEEP,
+
+	GRASS,
+	SOW_THISTLE,
+	GUARANA,
+	BELLADONNA,
+	SOSNOWSKYS_HOGWEED,
+
+	UNKNOWN
+};
+
 class Organism
 {
 protected:
@@ -26,6 +46,7 @@ protected:
 
 	Point2D* position;
 
+	ORGANISM_SPECIES species;
 	char visual;
 
 	ORGANISM_STATE state;
@@ -45,6 +66,8 @@ public:
 
 	// Always running for the organism in which field other organism entered
 	//virtual void ReactToCollision(Organism* enteringOrganism);
+
+	ORGANISM_SPECIES GetSpecies();
 
 	virtual char GetVisual();
 
@@ -68,5 +91,8 @@ public:
 	void SetAge(int newAge);
 
 	int GetAge();
+
+
+	string GetDescribtion();
 };
 

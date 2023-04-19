@@ -3,6 +3,10 @@
 
 class Antilope : public Animal
 {
+private:
+
+	bool EscapeFromFight(Point2D& targetPosition);
+
 protected:
 
 	void Attack(Organism* target);

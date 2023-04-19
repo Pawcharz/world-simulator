@@ -1,6 +1,6 @@
 #include "Displayer.h"
+#include "World.h"
 
-Displayer* Displayer::displayerInstance = nullptr;
 
 Displayer::Displayer() {
 	World* world = World::GetInstance();
@@ -9,7 +9,6 @@ Displayer::Displayer() {
 	Point2D displayedSize = size;
 	displayedSize.x += 2;
 	displayedSize.y += 2;
-	//displayedSize.x *= 2;
 
 	screenBuffer = new vector<vector<char*>*>(size.y);
 
@@ -23,16 +22,20 @@ Displayer::Displayer() {
 		(*screenBuffer)[y] = rowTmp;
 	}
 
+
+	logs = new vector<string>;
 }
 
-Displayer* Displayer::GetInstance() {
-	if (displayerInstance == nullptr) {
-		displayerInstance = new Displayer();
-		return displayerInstance;
-	}
 
-	return displayerInstance;
+
+void Displayer::AddLog(string logText) {
+	logs->push_back(logText);
 }
+
+void Displayer::ResetLogs() {
+	logs->clear();
+}
+
 
 void Displayer::UpdateBuffer() {
 	World* world = World::GetInstance();
@@ -69,6 +72,7 @@ void Displayer::UpdateBuffer() {
 
 void Displayer::DrawWorld() {
 	UpdateBuffer();
+
 	system("cls");
 
 	int height = screenBuffer->size();
@@ -83,4 +87,12 @@ void Displayer::DrawWorld() {
 		}
 		cout << endl;
 	}
+	cout << endl;
+
+	int logsSize = logs->size();
+	for (int i = 0; i < logsSize; i++)
+	{
+		cout << (*logs)[i] << endl;
+	}
+	ResetLogs();
 }

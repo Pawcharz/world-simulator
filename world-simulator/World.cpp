@@ -1,8 +1,6 @@
 #include "World.h"
-#include "Displayer.h"
 
 World* World::worldInstance = nullptr;
-
 
 
 World::~World() {
@@ -17,13 +15,13 @@ World::World() : height(1), width(1) {
 	srand(time(NULL));
 
 	organisms = new vector<Organism*>();
+	player = nullptr;
 };
 
 World* World::GetInstance()
 {
 	if (worldInstance == nullptr) {
 		worldInstance = new World();
-		return worldInstance;
 	}
 
 	return worldInstance;
@@ -37,6 +35,8 @@ void World::SetSize(int widthArg, int heightArg) {
 void World::Initialize(int widthArg, int heightArg) {
 	SetSize(widthArg, heightArg);
 
+	worldInstance->displayer = new Displayer();
+
 	const int WOLFS_COUNT = 2;
 	const int SHEEPS_COUNT = 4;
 	const int FOXES_COUNT = 2;
@@ -44,28 +44,31 @@ void World::Initialize(int widthArg, int heightArg) {
 	const int ANTELOPES_COUNT = 2;
 
 
-	const int GRASS_COUNT = 1;
+	const int GRASS_COUNT = 2;
 	const int SOW_THISTLE_COUNT = 1;
-	const int GUARANA_COUNT = 3;
-	const int BELLADONNA_COUNT = 10;
+	const int GUARANA_COUNT = 2;
+	const int BELLADONNA_COUNT = 2;
 	const int SOSNOWSKYS_HOGWEED_COUNT = 2;
 
 	/*CreateSpecies<Wolf>(WOLFS_COUNT);
-	CreateSpecies<Grass>(GRASS_COUNT);
-	CreateSpecies<Fox>(FOXES_COUNT);
-	CreateSpecies<Turtle>(TURTLES_COUNT);
-
 	CreateSpecies<Sheep>(SHEEPS_COUNT);
+	CreateSpecies<Fox>(FOXES_COUNT);
+	CreateSpecies<Turtle>(TURTLES_COUNT);*/
+
+	/*CreateSpecies<Grass>(GRASS_COUNT);
 	CreateSpecies<SowThistle>(SOW_THISTLE_COUNT);
 	CreateSpecies<Guarana>(GUARANA_COUNT);
-	CreateSpecies<Belladonna>(BELLADONNA_COUNT);*/
+	CreateSpecies<Belladonna>(BELLADONNA_COUNT);
+	CreateSpecies<SosnowskysHogweed>(SOSNOWSKYS_HOGWEED_COUNT);*/
 
 
 	//CreateSpecies<Wolf>(2);
 	//CreateSpecies<Fox>(3);
-	//CreateSpecies<Grass>(2);
-	CreateSpecies<Antilope>(3);
-	CreateSpecies<Wolf>(2);
+	//CreateSpecies<Grass>(10);
+	CreateSpecies<Antilope>(1);
+	//CreateSpecies<Wolf>(1);
+
+	CreateHuman();
 }
 
 template<typename ElementType>
@@ -173,7 +176,7 @@ vector<Point2D>* World::GetFieldsAtRadius(Point2D& center, int radius) {
 	}
 	return neighbours;
 }
-
+ 
 
 vector<Point2D>* World::GetNeighbouringFields(Point2D& position) {
 	return GetFieldsAtRadius(position);
@@ -240,7 +243,26 @@ Organism* World::GetOrganismAtPosition(Point2D& position) {
 	return nullptr;
 }
 
+Displayer* World::GetDisplayer() {
+	return displayer;
+}
 
+
+void World::CreateHuman() {
+	player = new Human();
+	Point2D position = Point2D::Random(GetStartBorders(), GetFinishBorders());
+
+	// FIX - will crash for more entities on the map
+	Organism* existing = GetOrganismAtPosition(position);
+	while (existing != nullptr)
+	{
+		position = Point2D::Random(GetStartBorders(), GetFinishBorders());
+		existing = GetOrganismAtPosition(position);
+	}
+
+	player->SetPosition(position);
+	organisms->push_back(player);
+}
 
 // Sets dead organisms to nullptr to avoid bugs while iterating over whole vectors in MakeTurn() function.
 void World::KillOrganism(Organism* target) {
@@ -262,10 +284,17 @@ void World::CleanDeadOrganisms() {
 	for (int i = 0; i < organismsCount; i++)
 	{
 		Organism* organism = (*organisms)[i];
-		if (organism->GetState()) {
+		if (organism->GetState() == ALIVE) {
 			newOrganisms->push_back(organism);
 		}
+		else {
+			if (organism->GetSpecies() == HUMAN) {
+				player = nullptr;
+			}
+			delete organism;
+		}
 	}
+
 
 	delete organisms;
 	organisms = nullptr;
@@ -301,17 +330,11 @@ void World::MakeTurn() {
 }
 
 void World::Simulate() {
-	Displayer* displayer = Displayer::GetInstance();
 
-	char pressed = NULL;
+	displayer->DrawWorld();
 
-	while (pressed != 'q') {
-		pressed = getchar();
-
-		if (pressed == ' ') {
-			MakeTurn();
-			displayer->DrawWorld();
-		}
+	while (player != nullptr) {
+		MakeTurn();
+		displayer->DrawWorld();
 	}
-	
 }

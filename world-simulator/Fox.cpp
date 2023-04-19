@@ -6,6 +6,7 @@ Fox::Fox() {
 	strength = 3;
 	initiative = 7;
 
+	species = FOX;
 	visual = 'F';
 }
 

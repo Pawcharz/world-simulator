@@ -9,6 +9,7 @@ Turtle::Turtle() {
 	strength = 3;
 	initiative = 7;
 
+	species = TURTLE;
 	visual = '@';
 }
 
