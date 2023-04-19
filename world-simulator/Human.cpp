@@ -41,6 +41,14 @@ void Human::Action() {
 	if (!world->IsWithinBorders(moveTo)) {
 		return;
 	}
+
+	Organism* target = world->GetOrganismAtPosition(moveTo);
+
+	if (target != nullptr) {
+
+		Attack(target);
+		return;
+	}
 	
 	*position = moveTo;
 }

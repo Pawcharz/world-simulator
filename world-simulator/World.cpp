@@ -17,6 +17,7 @@ World::World() : height(1), width(1) {
 	srand(time(NULL));
 
 	organisms = new vector<Organism*>();
+	player = nullptr;
 };
 
 World* World::GetInstance()
@@ -64,10 +65,10 @@ void World::Initialize(int widthArg, int heightArg) {
 	//CreateSpecies<Wolf>(2);
 	//CreateSpecies<Fox>(3);
 	//CreateSpecies<Grass>(2);
-	//CreateSpecies<Antilope>(1);
+	CreateSpecies<Antilope>(1);
 	//CreateSpecies<Wolf>(1);
 
-	CreateOrganism<Human>();
+	CreateHuman();
 }
 
 template<typename ElementType>
@@ -243,6 +244,21 @@ Organism* World::GetOrganismAtPosition(Point2D& position) {
 }
 
 
+void World::CreateHuman() {
+	player = new Human();
+	Point2D position = Point2D::Random(GetStartBorders(), GetFinishBorders());
+
+	// FIX - will crash for more entities on the map
+	Organism* existing = GetOrganismAtPosition(position);
+	while (existing != nullptr)
+	{
+		position = Point2D::Random(GetStartBorders(), GetFinishBorders());
+		existing = GetOrganismAtPosition(position);
+	}
+
+	player->SetPosition(position);
+	organisms->push_back(player);
+}
 
 // Sets dead organisms to nullptr to avoid bugs while iterating over whole vectors in MakeTurn() function.
 void World::KillOrganism(Organism* target) {
@@ -264,10 +280,17 @@ void World::CleanDeadOrganisms() {
 	for (int i = 0; i < organismsCount; i++)
 	{
 		Organism* organism = (*organisms)[i];
-		if (organism->GetState()) {
+		if (organism->GetState() == ALIVE) {
 			newOrganisms->push_back(organism);
 		}
+		else {
+			if (organism->GetSpecies() == HUMAN) {
+				player = nullptr;
+			}
+			delete organism;
+		}
 	}
+
 
 	delete organisms;
 	organisms = nullptr;
@@ -307,7 +330,7 @@ void World::Simulate() {
 
 	char pressed = NULL;
 
-	while (true) {
+	while (player != nullptr) {
 		//pressed = getchar();
 
 		//if (pressed == ' ') {

@@ -36,6 +36,8 @@ private:
 
 	static World* worldInstance;
 
+	Human* player;
+
 
 	World();
 
@@ -65,6 +67,9 @@ private:
 			CreateOrganism<T>();
 		}
 	}
+
+	void CreateHuman();
+
 
 	void MakeTurn();
 

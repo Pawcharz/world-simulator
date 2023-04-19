@@ -70,6 +70,7 @@
     <ClCompile Include="Human.cpp">
       <Filter>organisms\animals</Filter>
     </ClCompile>
+    <ClCompile Include="Controller.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animal.h">
@@ -125,5 +126,6 @@
     <ClInclude Include="Human.h">
       <Filter>organisms\animals</Filter>
     </ClInclude>
+    <ClInclude Include="Controller.h" />
   </ItemGroup>
 </Project>
