@@ -92,6 +92,9 @@ void Animal::Breed(Animal* partner) {
 	Animal* child = new Animal();
 	child->SetPosition(*breedPosition);
 	world->GetOrganisms()->push_back(child);
+
+	Displayer* displayer = world->GetDisplayer();
+	displayer->AddLog(GetDescribtion() + " and " + partner->GetDescribtion() + " born the new " + child->GetDescribtion());
 }
 
 void Animal::Attack(Organism* target) {

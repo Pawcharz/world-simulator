@@ -110,4 +110,7 @@ void Antilope::Breed(Animal* partner) {
 	Antilope* child = new Antilope();
 	child->SetPosition(*breedPosition);
 	world->GetOrganisms()->push_back(child);
+
+	Displayer* displayer = world->GetDisplayer();
+	displayer->AddLog(GetDescribtion() + " and " + partner->GetDescribtion() + " born the new " + child->GetDescribtion());
 }

@@ -21,4 +21,7 @@ void Wolf::Breed(Animal* partner) {
 	Wolf* child = new Wolf();
 	child->SetPosition(*breedPosition);
 	world->GetOrganisms()->push_back(child);
+
+	Displayer* displayer = world->GetDisplayer();
+	displayer->AddLog(GetDescribtion() + " and " + partner->GetDescribtion() + " born the new " + child->GetDescribtion());
 }
