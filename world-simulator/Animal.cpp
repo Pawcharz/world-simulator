@@ -3,11 +3,12 @@
 
 using namespace std;
 
+const int BREEDING_MIN_AGE = 3;
+
 Animal::Animal() {
 
 	visual = 'A';
 }
-
 
 
 vector<Point2D>* Animal::GetPositionsToMove() {
@@ -45,9 +46,52 @@ void Animal::Movement() {
 
 
 void Animal::Collision(Organism* target) {
-	// Check if the same type
 
-	Attack(target);
+	if (target->GetSpecies() == species) {
+
+		if (target->GetAge() >= BREEDING_MIN_AGE && GetAge() >= BREEDING_MIN_AGE) {
+			Breed(dynamic_cast<Animal*>(target));
+		}
+	}
+	else {
+		Attack(target);
+	}
+}
+
+
+Point2D* Animal::GetBreedPosition(Point2D& partnerPosition) {
+	World* world = World::GetInstance();
+
+	vector<Point2D>* neighbouringFields = world->GetNeighbouringFreeFields(partnerPosition);
+	int length = neighbouringFields->size();
+
+	if (length == 0) {
+		neighbouringFields = world->GetNeighbouringFreeFields(partnerPosition);
+		length = neighbouringFields->size();
+	}
+
+	if (length == 0) {
+		return nullptr;
+	}
+
+	int index = randomInteger(0, length - 1);
+	Point2D* positionToBreed = new Point2D((*neighbouringFields)[index]);
+	
+	delete neighbouringFields;
+	return positionToBreed;
+}
+
+void Animal::Breed(Animal* partner) {
+	World* world = World::GetInstance();
+	Point2D* breedPosition = partner->GetBreedPosition(partner->GetPosition());
+
+	if (breedPosition == nullptr) {
+		return;
+	}
+
+	Animal* child = new Animal();
+	child->SetPosition(*breedPosition);
+	world->GetOrganisms()->push_back(child);
 }
 
 void Animal::Attack(Organism* target) {

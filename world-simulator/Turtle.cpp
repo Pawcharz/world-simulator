@@ -33,3 +33,16 @@ DEFENCE_RESULT Turtle::Defend(Organism* attacker) {
 
 	return TARGET_KILLED;
 }
+
+void Turtle::Breed(Animal* partner) {
+	World* world = World::GetInstance();
+	Point2D* breedPosition = partner->GetBreedPosition(partner->GetPosition());
+
+	if (breedPosition == nullptr) {
+		return;
+	}
+
+	Turtle* child = new Turtle();
+	child->SetPosition(*breedPosition);
+	world->GetOrganisms()->push_back(child);
+}

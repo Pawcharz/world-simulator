@@ -33,3 +33,16 @@ vector<Point2D>* Fox::GetPositionsToMove() {
 
 	return available;
 }
+
+void Fox::Breed(Animal* partner) {
+	World* world = World::GetInstance();
+	Point2D* breedPosition = partner->GetBreedPosition(partner->GetPosition());
+
+	if (breedPosition == nullptr) {
+		return;
+	}
+
+	Fox* child = new Fox();
+	child->SetPosition(*breedPosition);
+	world->GetOrganisms()->push_back(child);
+}

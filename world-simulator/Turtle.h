@@ -6,6 +6,8 @@ class Turtle : public Animal
 {
 protected:
 
+	void Breed(Animal* partner);
+
 	DEFENCE_RESULT Defend(Organism* attacker);
 
 public:

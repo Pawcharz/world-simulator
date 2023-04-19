@@ -10,6 +10,7 @@ Human::Human() {
 	species = HUMAN;
 	visual = '+';
 }
+
 bool isValidKey(char key) {
 	if (key == 'a' || key == 'd' || key == 'w' || key == 's' || key == ' ') {
 		return true;
@@ -20,7 +21,7 @@ bool isValidKey(char key) {
 void Human::Action() {
 	World* world = World::GetInstance();
 	Displayer* displayer = world->GetDisplayer();
-
+	displayer->DrawWorld();
 	Point2D moveTo;
 
 	char pressedKey = NULL;

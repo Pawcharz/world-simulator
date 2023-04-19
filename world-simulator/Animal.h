@@ -10,7 +10,13 @@ protected:
 
 	virtual vector<Point2D>* GetPositionsToMove();
 
+
 	virtual void Collision(Organism* target);
+
+
+
+	virtual void Breed(Animal* partner);
+
 
 	virtual void Attack(Organism* target);
 
@@ -21,6 +27,8 @@ public:
 	Animal();
 
 	//~Animal();
+
+	Point2D* GetBreedPosition(Point2D& partnerPosition);
 
 	virtual void Movement();
 
