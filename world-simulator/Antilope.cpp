@@ -34,20 +34,24 @@ bool Antilope::EscapeFromFight(Point2D& escapeFrom) {
 
 void Antilope::Attack(Organism* target) {
 	World* world = World::GetInstance();
+	Displayer* displayer = world->GetDisplayer();
 
 	Point2D targetPosition = target->GetPosition();
 
 	DEFENCE_RESULT result = target->Defend(this);
 
 	if (result == TARGET_KILLED) {
+		displayer->AddLog(GetDescribtion() + " killed " + target->GetDescribtion());
+
 		position = new Point2D(targetPosition);
 		world->KillOrganism(target);
 	}
 	else if (result == ATTACKER_KILLED) {
+		displayer->AddLog(target->GetDescribtion() + " killed " + GetDescribtion());
 		world->KillOrganism(this);
 	}
 	else if (result == TARGET_ESCAPED) {
-
+		displayer->AddLog(GetDescribtion() + " attacked and escaped from " + target->GetDescribtion());
 	}
 }
 
