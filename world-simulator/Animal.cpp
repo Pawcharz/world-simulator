@@ -64,6 +64,7 @@ void Animal::Attack(Organism* target) {
 	}
 	else if (result == TARGET_ESCAPED) {
 
+		// Should probably be impemented in the antilope class
 		vector<Point2D>* availablePositions = world->GetNeighbouringFields(target->GetPosition());
 		int positionsCount = availablePositions->size();
 		
@@ -76,7 +77,7 @@ void Animal::Attack(Organism* target) {
 
 		int index = randomInteger(0, positionsCount);
 
-		target->SetPosition(target->GetPosition());
+		target->SetPosition((*availablePositions)[index]);
 	}
 }
 
