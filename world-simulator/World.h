@@ -124,5 +124,10 @@ public:
 	Displayer* GetDisplayer();
 
 	Human* GetPlayer();
+
+
+	void SaveToFile();
+
+	void LoadFromFile();
 };
 

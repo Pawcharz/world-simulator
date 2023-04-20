@@ -350,6 +350,5 @@ void World::Simulate() {
 
 	while (player != nullptr) {
 		MakeTurn();
-		//displayer->DrawWorld();
 	}
 }

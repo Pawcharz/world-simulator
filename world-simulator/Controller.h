@@ -18,12 +18,16 @@ private:
 
 	SIMULATION_MODE mode;
 
-	//string fileName; // ADD more from file saving. Maybe create another class
+	string fileName;
 public:
 	Controller();
 
 	void ReadInputChar();
 
 	char GetPressedCharacter();
+
+	SIMULATION_MODE GetMode();
+
+	string GetFileName();
 };
 

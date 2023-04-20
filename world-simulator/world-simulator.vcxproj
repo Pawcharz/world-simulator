@@ -133,6 +133,7 @@
     <ClCompile Include="Comparable.cpp" />
     <ClCompile Include="Controller.cpp" />
     <ClCompile Include="Displayer.cpp" />
+    <ClCompile Include="filesystem.cpp" />
     <ClCompile Include="Fox.cpp" />
     <ClCompile Include="Grass.cpp" />
     <ClCompile Include="Guarana.cpp" />

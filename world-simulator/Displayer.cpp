@@ -95,3 +95,30 @@ void Displayer::DrawWorld() {
 		cout << (*logs)[i] << endl;
 	}
 }
+
+void Displayer::DrawFileMenu() {
+
+	Controller* controller = World::GetInstance()->GetController();
+
+	system("cls");
+
+	if (controller->GetMode() == FILE_SAVING) {
+		cout << "File saving menu:" << endl;
+	}
+	else {
+		cout << "File loading menu:" << endl;
+	}
+
+	cout << "Write name of the file: " << controller->GetFileName() << endl;
+}
+
+void Displayer::DrawInterface() {
+	Controller* controller = World::GetInstance()->GetController();
+
+	if (controller->GetMode() == SIMULATION_PLAYING) {
+		DrawWorld();
+	}
+	else {
+		DrawFileMenu();
+	}
+}

@@ -76,7 +76,6 @@ bool Human::HandleMovement(char pressedKey) {
 	else {
 		displayer->ResetLogs();
 		displayer->AddLog("Tried to move outside of the map, try again");
-		displayer->DrawWorld();
 		return false;
 	}
 }
