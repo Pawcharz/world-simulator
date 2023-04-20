@@ -35,6 +35,7 @@ void Human::UpdateState() {
 
 void Human::UseSpecialAbility() {
 	strengthBuff = 5;
+	specialAbilityCooldown = 5;
 
 	Displayer* displayer = World::GetInstance()->GetDisplayer();
 	displayer->AddLog("You drink magic potion, strength + 5");
@@ -80,53 +81,38 @@ bool Human::HandleMovement(char pressedKey) {
 	}
 }
 
+void Human::HandleControlledAction(bool* errorOccured) {
+	World* world = World::GetInstance();
+	Controller* controller = world->GetController();
+	Displayer* displayer = world->GetDisplayer();
 
-bool isValidKey(char key) {
-	if (key == 'a' || key == 'd' || key == 'w' || key == 's' || key == ' ') {
-		return true;
+	char pressedKey = controller->GetPressedCharacter();
+
+	if (pressedKey == ' ') {
+		if (specialAbilityCooldown == 0) {
+
+			UseSpecialAbility();
+			*errorOccured = false;
+		}
+		else {
+			string message = "You cant use this ability for the next ";
+			message += (specialAbilityCooldown + '0');
+			message += " turns.";
+			displayer->AddLog(message);
+		}
 	}
-	return false;
+	else {
+		bool success = HandleMovement(pressedKey);
+		*errorOccured = !success;
+	}
 }
 
 void Human::Action() {
 	World* world = World::GetInstance();
-	Displayer* displayer = world->GetDisplayer();
-	displayer->DrawWorld();
+	Controller* controller = world->GetController();
 
-	char pressedKey = NULL;
-	bool errorOccured = true;
-
-	while (errorOccured)
-	{
-		pressedKey = _getch();
-
-		if (isValidKey(pressedKey)) {
-
-			if (pressedKey == ' ') {
-				if (specialAbilityCooldown == 0) {
-
-					UseSpecialAbility();
-					errorOccured = false;
-				}
-				else {
-					string message = "You cant use this ability for the next " + (specialAbilityCooldown + '0');
-					message += " turns.";
-					displayer->AddLog(message);
-				}
-			}
-			else {
-				bool success = HandleMovement(pressedKey);
-				errorOccured = !success;
-			}
-		}
-		else {
-			displayer->ResetLogs();
-			displayer->AddLog("Wrong key, try again");
-			displayer->DrawWorld();
-		}
-	}
+	controller->ReadInputChar();
 
 	UpdateState();
-	//displayer->DrawWorld();
 }
 

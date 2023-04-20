@@ -3,6 +3,7 @@
 #include <iostream>
 #include <vector>
 
+#include "Controller.h"
 #include "Displayer.h"
 
 #include "Organism.h"
@@ -26,14 +27,13 @@
 
 using namespace std;
 
-
-
 class World
 {
 private:
 
 	static World* worldInstance;
 
+	Controller* controller;
 	Displayer* displayer;
 
 	int height;
@@ -119,6 +119,10 @@ public:
 	void KillOrganism(Organism* target);
 
 
+	Controller* GetController();
+
 	Displayer* GetDisplayer();
+
+	Human* GetPlayer();
 };
 

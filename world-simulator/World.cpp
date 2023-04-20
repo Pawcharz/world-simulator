@@ -36,6 +36,7 @@ void World::Initialize(int widthArg, int heightArg) {
 	SetSize(widthArg, heightArg);
 
 	worldInstance->displayer = new Displayer();
+	worldInstance->controller = new Controller();
 
 	const int WOLFS_COUNT = 2;
 	const int SHEEPS_COUNT = 4;
@@ -247,6 +248,11 @@ Organism* World::GetOrganismAtPosition(Point2D& position) {
 	return nullptr;
 }
 
+
+Controller* World::GetController() {
+	return controller;
+}
+
 Displayer* World::GetDisplayer() {
 	return displayer;
 }
@@ -266,6 +272,10 @@ void World::CreateHuman() {
 
 	player->SetPosition(position);
 	organisms->push_back(player);
+}
+
+Human* World::GetPlayer() {
+	return player;
 }
 
 // Sets dead organisms to nullptr to avoid bugs while iterating over whole vectors in MakeTurn() function.
@@ -340,6 +350,6 @@ void World::Simulate() {
 
 	while (player != nullptr) {
 		MakeTurn();
-		displayer->DrawWorld();
+		//displayer->DrawWorld();
 	}
 }

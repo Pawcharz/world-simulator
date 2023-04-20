@@ -19,5 +19,7 @@ public:
 
 	void UpdateState();
 
+	void HandleControlledAction(bool* errorOccured);
+
 	void Action();
 };
