@@ -76,11 +76,12 @@ private:
 	void CreateHuman();
 
 
+	void SortOrganisms();
+
 	void MakeTurn();
 
 	void CleanDeadOrganisms();
 
-	void SortOrganisms();
 
 public:
 	bool IsWithinBorders(Point2D& position);

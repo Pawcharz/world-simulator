@@ -69,7 +69,7 @@ void World::Initialize(int widthArg, int heightArg) {
 	//CreateSpecies<Antilope>(1);
 	//CreateSpecies<Wolf>(1);
 
-	CreateSpecies<Wolf>(5);
+	CreateSpecies<Sheep>(5);
 
 	CreateHuman();
 }
@@ -131,6 +131,7 @@ void World::SortOrganisms() {
 	delete organisms;
 	organisms = sorted;
 }
+
 
 bool World::IsWithinBorders(Point2D& position) {
 
@@ -306,6 +307,7 @@ void World::CleanDeadOrganisms() {
 
 
 void World::MakeTurn() {
+
 	// Sort organisms by initiative
 	int initialOrganismsCount = organisms->size();
 	SortOrganisms();

@@ -17,9 +17,6 @@ private:
 
 	vector<string>* logs;
 
-
-	void ResetLogs();
-
 	void UpdateBuffer();
 
 
@@ -32,5 +29,7 @@ public:
 	void DrawWorld();
 
 	void AddLog(string logText);
+
+	void ResetLogs();
 };
 

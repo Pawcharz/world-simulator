@@ -94,5 +94,4 @@ void Displayer::DrawWorld() {
 	{
 		cout << (*logs)[i] << endl;
 	}
-	ResetLogs();
 }

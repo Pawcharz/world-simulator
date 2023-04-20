@@ -18,6 +18,7 @@ Organism::Organism(Point2D& initialPosition) : age(0) {
 	state = ALIVE;
 }
 
+
 void Organism::Action() {
 	cout << "BASE CLASS ACTION" << endl;
 }
