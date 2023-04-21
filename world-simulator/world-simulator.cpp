@@ -5,7 +5,7 @@
 int main()
 {
     World* world = World::GetInstance();
-    world->Initialize(8, 8);
+    world->Initialize(20, 20);
 
     world->Simulate();
 }

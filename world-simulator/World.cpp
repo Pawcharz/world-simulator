@@ -39,30 +39,32 @@ void World::Initialize(int widthArg, int heightArg) {
 	worldInstance->displayer = new Displayer();
 	worldInstance->controller = new Controller();
 
-	const int WOLFS_COUNT = 2;
-	const int SHEEPS_COUNT = 4;
-	const int FOXES_COUNT = 2;
-	const int TURTLES_COUNT = 2;
-	const int ANTELOPES_COUNT = 2;
+	const int WOLFS_COUNT = 4;
+	const int SHEEPS_COUNT = 5;
+	const int FOXES_COUNT = 3;
+	const int TURTLES_COUNT = 3;
+	const int ANTELOPES_COUNT = 3;
 
 
-	const int GRASS_COUNT = 2;
+	const int GRASS_COUNT = 3;
 	const int SOW_THISTLE_COUNT = 1;
 	const int GUARANA_COUNT = 2;
-	const int BELLADONNA_COUNT = 2;
+	const int BELLADONNA_COUNT = 3;
 	const int SOSNOWSKYS_HOGWEED_COUNT = 2;
 
-	/*CreateSpecies<Wolf>(WOLFS_COUNT);
+	CreateHuman();
+
+	CreateSpecies<Wolf>(WOLFS_COUNT);
 	CreateSpecies<Sheep>(SHEEPS_COUNT);
 	CreateSpecies<Fox>(FOXES_COUNT);
 	CreateSpecies<Turtle>(TURTLES_COUNT);
-	CreateSpecies<Antilope>(ANTELOPES_COUNT);*/
+	CreateSpecies<Antilope>(ANTELOPES_COUNT);
 
-	/*CreateSpecies<Grass>(GRASS_COUNT);
+	CreateSpecies<Grass>(GRASS_COUNT);
 	CreateSpecies<SowThistle>(SOW_THISTLE_COUNT);
 	CreateSpecies<Guarana>(GUARANA_COUNT);
 	CreateSpecies<Belladonna>(BELLADONNA_COUNT);
-	CreateSpecies<SosnowskysHogweed>(SOSNOWSKYS_HOGWEED_COUNT);*/
+	CreateSpecies<SosnowskysHogweed>(SOSNOWSKYS_HOGWEED_COUNT);
 
 
 	//CreateSpecies<Wolf>(2);
@@ -71,9 +73,8 @@ void World::Initialize(int widthArg, int heightArg) {
 	//CreateSpecies<Antilope>(1);
 	//CreateSpecies<Wolf>(1);
 
-	CreateSpecies<Sheep>(5);
+	//CreateSpecies<Sheep>(5);
 
-	CreateHuman();
 }
 
 
@@ -362,4 +363,7 @@ void World::Simulate() {
 	while (player != nullptr) {
 		MakeTurn();
 	}
+
+	displayer->DrawWorld();
+
 }

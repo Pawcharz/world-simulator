@@ -41,9 +41,12 @@ void Human::UseSpecialAbility() {
 	displayer->AddLog("You drink magic potion, strength + 5");
 }
 
-bool Human::HandleMovement(char pressedKey) {
+bool Human::HandleMovement() {
 	World* world = World::GetInstance();
+	Controller* controller = world->GetController();
 	Displayer* displayer = world->GetDisplayer();
+
+	char pressedKey = controller->GetPressedCharacter();
 
 	Point2D moveTo;
 
@@ -101,7 +104,7 @@ void Human::HandleControlledAction(bool* errorOccured) {
 		}
 	}
 	else {
-		bool success = HandleMovement(pressedKey);
+		bool success = HandleMovement();
 		*errorOccured = !success;
 	}
 }

@@ -12,7 +12,7 @@ private:
 
 	void UseSpecialAbility();
 
-	bool HandleMovement(char pressedKey);
+	bool HandleMovement();
 
 public:
 	Human();

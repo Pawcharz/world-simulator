@@ -101,6 +101,11 @@ int Organism::GetAge() {
 	return age;
 }
 
+string& parseIntToString(int inputValue) {
+	char* buffer = parseIntToChar(inputValue);
+	string* res = new string(buffer);
+	return *res;
+}
 
 string Organism::GetDescribtion() {
 	string description = "";
@@ -151,9 +156,9 @@ string Organism::GetDescribtion() {
 	}
 
 	description += " at position (";
-	description += position->x + '0';
+	description += parseIntToString(position->x);
 	description += ", ";
-	description += position->y + '0';
+	description += parseIntToString(position->y);
 	description += ")";
 
 	return description;
