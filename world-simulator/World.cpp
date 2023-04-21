@@ -27,6 +27,7 @@ World* World::GetInstance()
 	return worldInstance;
 }
 
+
 void World::SetSize(int widthArg, int heightArg) {
 	width = widthArg;
 	height = heightArg;
@@ -75,62 +76,13 @@ void World::Initialize(int widthArg, int heightArg) {
 	CreateHuman();
 }
 
-template<typename ElementType>
-bool vectorIncludes(vector<ElementType>* vector, ElementType elem) {
-	int foundElements = count(vector->begin(), vector->end(), elem);
 
-	if (foundElements > 0) {
-		return true;
-	}
-	return false;
+Controller* World::GetController() {
+	return controller;
 }
 
-Organism* getQuickestOrganism(vector<Organism*>* all, vector<Organism*>* excluded) {
-	int length = all->size();
-
-	Organism* best = nullptr;
-
-	for (int i = 0; i < length; i++)
-	{
-		Organism* newOrganism = (*all)[i];
-
-		bool includes = vectorIncludes<Organism*>(excluded, newOrganism);
-
-		if (!includes) {
-			if (best == nullptr) {
-				best = newOrganism;
-			}
-			else {
-				int currentInitiative = best->GetInitiative();
-				int newInitiative = newOrganism->GetInitiative();
-
-				if (newInitiative > currentInitiative) {
-					best = newOrganism;
-				}
-				else if (newInitiative == currentInitiative && newOrganism->GetAge() > best->GetAge()) {
-
-					best = newOrganism;
-				}
-			}
-		}
-	}
-
-	return best;
-}
-
-void World::SortOrganisms() {
-	int length = organisms->size();
-
-	vector<Organism*>* sorted = new vector<Organism*>();
-
-	for (int i = 0; i < length; i++) {
-		Organism* best = getQuickestOrganism(organisms, sorted);
-
-		sorted->push_back(best);
-	}
-
-	delete organisms;
-	organisms = sorted;
+Displayer* World::GetDisplayer() {
+	return displayer;
 }
 
 
@@ -249,12 +201,62 @@ Organism* World::GetOrganismAtPosition(Point2D& position) {
 }
 
 
-Controller* World::GetController() {
-	return controller;
+template<typename ElementType>
+bool vectorIncludes(vector<ElementType>* vector, ElementType elem) {
+	int foundElements = count(vector->begin(), vector->end(), elem);
+
+	if (foundElements > 0) {
+		return true;
+	}
+	return false;
 }
 
-Displayer* World::GetDisplayer() {
-	return displayer;
+Organism* getQuickestOrganism(vector<Organism*>* all, vector<Organism*>* excluded) {
+	int length = all->size();
+
+	Organism* best = nullptr;
+
+	for (int i = 0; i < length; i++)
+	{
+		Organism* newOrganism = (*all)[i];
+
+		bool includes = vectorIncludes<Organism*>(excluded, newOrganism);
+
+		if (!includes) {
+			if (best == nullptr) {
+				best = newOrganism;
+			}
+			else {
+				int currentInitiative = best->GetInitiative();
+				int newInitiative = newOrganism->GetInitiative();
+
+				if (newInitiative > currentInitiative) {
+					best = newOrganism;
+				}
+				else if (newInitiative == currentInitiative && newOrganism->GetAge() > best->GetAge()) {
+
+					best = newOrganism;
+				}
+			}
+		}
+	}
+
+	return best;
+}
+
+void World::SortOrganisms() {
+	int length = organisms->size();
+
+	vector<Organism*>* sorted = new vector<Organism*>();
+
+	for (int i = 0; i < length; i++) {
+		Organism* best = getQuickestOrganism(organisms, sorted);
+
+		sorted->push_back(best);
+	}
+
+	delete organisms;
+	organisms = sorted;
 }
 
 
@@ -274,9 +276,18 @@ void World::CreateHuman() {
 	organisms->push_back(player);
 }
 
+
+void World::SetPlayer(Human* newPlayer) {
+	if (player != nullptr) {
+		delete player;
+	}
+	player = newPlayer;
+}
+
 Human* World::GetPlayer() {
 	return player;
 }
+
 
 // Sets dead organisms to nullptr to avoid bugs while iterating over whole vectors in MakeTurn() function.
 void World::KillOrganism(Organism* target) {

@@ -115,3 +115,19 @@ void Human::Action() {
 	UpdateState();
 }
 
+
+void Human::SetStrengthBuff(int buff) {
+	strengthBuff = buff;
+}
+
+int Human::GetStrengthBuff() {
+	return strengthBuff;
+}
+
+void Human::SetAbilityCooldown(int cooldown) {
+	specialAbilityCooldown = cooldown;
+}
+
+int Human::GetAbilityCooldown() {
+	return specialAbilityCooldown;
+}

@@ -123,6 +123,9 @@ public:
 
 	Displayer* GetDisplayer();
 
+
+	void SetPlayer(Human* newPlayer);
+
 	Human* GetPlayer();
 
 

@@ -17,6 +17,17 @@ private:
 public:
 	Human();
 
+	void SetStrengthBuff(int buff);
+
+	int GetStrengthBuff();
+
+
+	void SetAbilityCooldown(int cooldown);
+
+	int GetAbilityCooldown();
+
+
+
 	void UpdateState();
 
 	void HandleControlledAction(bool* errorOccured);
