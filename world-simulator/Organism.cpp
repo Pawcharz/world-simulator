@@ -1,4 +1,7 @@
 #include "Organism.h"
+#include <fstream>
+
+using namespace std;
 
 Organism::Organism(): age(0) {
 	position = new Point2D(0, 0);
@@ -43,12 +46,27 @@ int Organism::GetStrength() {
 	return strength;
 }
 
+
+void Organism::SetInitiative(int newInitiative) {
+	initiative = newInitiative;
+}
+
 int Organism::GetInitiative() {
 	return initiative;
 }
 
+
+void Organism::SetSpecies(ORGANISM_SPECIES newSpecies) {
+	species = newSpecies;
+}
+
 ORGANISM_SPECIES Organism::GetSpecies() {
 	return species;
+}
+
+
+void Organism::SetVisual(char newVisual) {
+	visual = newVisual;
 }
 
 char Organism::GetVisual() {
@@ -82,6 +100,7 @@ void Organism::SetAge(int newAge) {
 int Organism::GetAge() {
 	return age;
 }
+
 
 string Organism::GetDescribtion() {
 	string description = "";

@@ -71,6 +71,7 @@
       <Filter>organisms\animals</Filter>
     </ClCompile>
     <ClCompile Include="Controller.cpp" />
+    <ClCompile Include="filesystem.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animal.h">

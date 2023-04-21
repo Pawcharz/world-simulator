@@ -36,6 +36,7 @@ enum ORGANISM_SPECIES {
 	UNKNOWN
 };
 
+
 class Organism
 {
 protected:
@@ -67,13 +68,22 @@ public:
 	// Always running for the organism in which field other organism entered
 	//virtual void ReactToCollision(Organism* enteringOrganism);
 
+	void SetSpecies(ORGANISM_SPECIES newSpecies);
+
 	ORGANISM_SPECIES GetSpecies();
 
+
+	void SetVisual(char newVisual);
+
 	virtual char GetVisual();
+
 
 	void SetStrength(int newStrength);
 
 	int GetStrength();
+
+
+	void SetInitiative(int newInitiative);
 
 	int GetInitiative();
 
@@ -94,5 +104,6 @@ public:
 
 
 	string GetDescribtion();
+
 };
 

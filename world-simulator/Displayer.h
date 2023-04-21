@@ -31,5 +31,10 @@ public:
 	void AddLog(string logText);
 
 	void ResetLogs();
+
+
+	void DrawFileMenu(); 
+
+	void DrawInterface();
 };
 
