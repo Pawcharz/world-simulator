@@ -70,7 +70,9 @@ void Controller::ReadInputChar()
 				//return;
 			}
 			else if (pressedCharacter == KEY_BACKSPACE) {
-				fileName.pop_back();
+				if (fileName.size() > 0) {
+					fileName.pop_back();
+				}
 			}
 			else {
 				fileName += pressedCharacter;
