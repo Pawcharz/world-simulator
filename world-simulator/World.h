@@ -44,6 +44,8 @@ private:
 	Human* player;
 
 
+	bool justLoaded;
+
 	World();
 
 	void SetSize(int width, int height);

@@ -16,6 +16,7 @@ World::World() : height(1), width(1) {
 
 	organisms = new vector<Organism*>();
 	player = nullptr;
+	justLoaded = false;
 };
 
 World* World::GetInstance()
@@ -36,8 +37,8 @@ void World::SetSize(int widthArg, int heightArg) {
 void World::Initialize(int widthArg, int heightArg) {
 	SetSize(widthArg, heightArg);
 
-	worldInstance->displayer = new Displayer();
-	worldInstance->controller = new Controller();
+	displayer = new Displayer();
+	controller = new Controller();
 
 	const int WOLFS_COUNT = 4;
 	const int SHEEPS_COUNT = 5;
@@ -55,7 +56,7 @@ void World::Initialize(int widthArg, int heightArg) {
 	CreateHuman();
 
 	CreateSpecies<Wolf>(WOLFS_COUNT);
-	/*CreateSpecies<Sheep>(SHEEPS_COUNT);
+	CreateSpecies<Sheep>(SHEEPS_COUNT);
 	CreateSpecies<Fox>(FOXES_COUNT);
 	CreateSpecies<Turtle>(TURTLES_COUNT);
 	CreateSpecies<Antilope>(ANTELOPES_COUNT);
@@ -64,17 +65,7 @@ void World::Initialize(int widthArg, int heightArg) {
 	CreateSpecies<SowThistle>(SOW_THISTLE_COUNT);
 	CreateSpecies<Guarana>(GUARANA_COUNT);
 	CreateSpecies<Belladonna>(BELLADONNA_COUNT);
-	CreateSpecies<SosnowskysHogweed>(SOSNOWSKYS_HOGWEED_COUNT);*/
-
-
-	//CreateSpecies<Wolf>(2);
-	//CreateSpecies<Fox>(3);
-	//CreateSpecies<Grass>(10);
-	//CreateSpecies<Antilope>(1);
-	//CreateSpecies<Wolf>(1);
-
-	//CreateSpecies<Sheep>(5);
-
+	CreateSpecies<SosnowskysHogweed>(SOSNOWSKYS_HOGWEED_COUNT);
 }
 
 
@@ -337,6 +328,12 @@ void World::MakeTurn() {
 	// Shouldnt break the order of organisms as we are marking deadAnimals as nullptr and new ones are created at the ond of the array (out of the initialOrganismsCount)
 	for (int i = 0; i < initialOrganismsCount; i++)
 	{
+		if (justLoaded == true) {
+
+			justLoaded = false;
+			return;
+		}
+
 		Organism* elem = (*organisms)[i];
 
 		if (elem != nullptr && elem->GetState() == ALIVE) {

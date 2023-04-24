@@ -16,6 +16,26 @@ Human::Human() {
 	strengthBuff = 0;
 }
 
+Human::Human(Organism& base) {
+
+	strength = base.GetStrength();
+	baseStrength = strength;
+
+	initiative = base.GetInitiative();
+
+	Point2D* pos = new Point2D();
+	pos->x = base.GetPosition().x;
+	pos->y = base.GetPosition().y;
+
+	position = pos;
+
+	species = HUMAN;
+	visual = '+';
+
+	specialAbilityCooldown = 0;
+	strengthBuff = 0;
+}
+
 void Human::UpdateState() {
 
 	strength = baseStrength + strengthBuff;

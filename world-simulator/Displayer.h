@@ -17,8 +17,9 @@ private:
 
 	vector<string>* logs;
 
-	void UpdateBuffer();
+	void RegenerateBuffer();
 
+	void UpdateBuffer();
 
 public:
 

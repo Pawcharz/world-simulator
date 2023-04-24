@@ -16,6 +16,7 @@ private:
 
 public:
 	Human();
+	Human(Organism& base);
 
 	void SetStrengthBuff(int buff);
 

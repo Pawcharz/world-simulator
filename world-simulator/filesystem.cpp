@@ -327,7 +327,7 @@ void World::LoadFromFile() {
 
 		Organism* properType = nullptr;
 		if (base->GetSpecies() == HUMAN) {
-			Human* asHuman = new Human();
+			Human* asHuman = new Human(*base);
 
 			int strengthBuff;
 			inputStream >> strengthBuff;
@@ -346,5 +346,6 @@ void World::LoadFromFile() {
 		organisms->push_back(properType);
 	}
 
+	justLoaded = true;
 	inputStream.close();
 }

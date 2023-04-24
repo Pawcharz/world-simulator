@@ -36,8 +36,35 @@ void Displayer::ResetLogs() {
 	logs->clear();
 }
 
+void Displayer::RegenerateBuffer() {
+
+	World* world = World::GetInstance();
+	Point2D size = world->GetSize();
+
+	//int oldHeight = screenBuffer->size();
+	//for (int y = 0; y < oldHeight; y++)
+	//{
+	//	delete (*screenBuffer)[y];
+	//}
+
+	delete screenBuffer;
+	screenBuffer = new vector<vector<char*>*>(size.y);
+
+	for (int y = 0; y < size.y; y++)
+	{
+		vector<char*>* rowTmp = new vector<char*>(size.x);
+		for (int x = 0; x < size.x; x++)
+		{
+			(*rowTmp)[x] = new char('*');
+		}
+		(*screenBuffer)[y] = rowTmp;
+	}
+}
 
 void Displayer::UpdateBuffer() {
+
+	RegenerateBuffer();
+
 	World* world = World::GetInstance();
 
 	int height = screenBuffer->size();
