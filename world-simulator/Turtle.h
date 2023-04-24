@@ -13,7 +13,7 @@ protected:
 public:
 	Turtle();
 
-	~Turtle();
+	//~Turtle();
 
 	void Movement();
 };

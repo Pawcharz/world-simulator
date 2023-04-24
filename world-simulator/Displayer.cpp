@@ -75,6 +75,10 @@ void Displayer::DrawWorld() {
 
 	system("cls");
 
+	cout << "Pawel Blicharz - s193193 | World Simulator";
+	cout << endl;
+	cout << endl;
+
 	int height = screenBuffer->size();
 	for (int y = height-1; y >= 0; y--)
 	{

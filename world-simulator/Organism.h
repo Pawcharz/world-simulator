@@ -56,6 +56,8 @@ public:
 
 	Organism();
 
+	~Organism();
+
 	Organism(Point2D& initialPosition);
 
 	virtual void Action();

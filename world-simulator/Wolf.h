@@ -10,6 +10,6 @@ protected:
 public:
 	Wolf();
 
-	~Wolf();
+	//~Wolf();
 };
 

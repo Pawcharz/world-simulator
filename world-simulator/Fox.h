@@ -12,7 +12,7 @@ protected:
 public:
 	Fox();
 
-	~Fox();
+	//~Fox();
 };
 
 

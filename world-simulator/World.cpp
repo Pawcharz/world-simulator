@@ -55,7 +55,7 @@ void World::Initialize(int widthArg, int heightArg) {
 	CreateHuman();
 
 	CreateSpecies<Wolf>(WOLFS_COUNT);
-	CreateSpecies<Sheep>(SHEEPS_COUNT);
+	/*CreateSpecies<Sheep>(SHEEPS_COUNT);
 	CreateSpecies<Fox>(FOXES_COUNT);
 	CreateSpecies<Turtle>(TURTLES_COUNT);
 	CreateSpecies<Antilope>(ANTELOPES_COUNT);
@@ -64,7 +64,7 @@ void World::Initialize(int widthArg, int heightArg) {
 	CreateSpecies<SowThistle>(SOW_THISTLE_COUNT);
 	CreateSpecies<Guarana>(GUARANA_COUNT);
 	CreateSpecies<Belladonna>(BELLADONNA_COUNT);
-	CreateSpecies<SosnowskysHogweed>(SOSNOWSKYS_HOGWEED_COUNT);
+	CreateSpecies<SosnowskysHogweed>(SOSNOWSKYS_HOGWEED_COUNT);*/
 
 
 	//CreateSpecies<Wolf>(2);
@@ -339,7 +339,7 @@ void World::MakeTurn() {
 	{
 		Organism* elem = (*organisms)[i];
 
-		if (elem != nullptr) {
+		if (elem != nullptr && elem->GetState() == ALIVE) {
 			elem->Action();
 		}
 	}
@@ -364,6 +364,8 @@ void World::Simulate() {
 		MakeTurn();
 	}
 
-	displayer->DrawWorld();
+	displayer->AddLog("\n");
+	displayer->AddLog("Human got killed - GAME OVER");
 
+	displayer->DrawWorld();
 }

@@ -20,5 +20,5 @@ protected:
 public:
 	Antilope();
 
-	~Antilope();
+	//~Antilope();
 };
