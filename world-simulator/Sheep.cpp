@@ -7,7 +7,7 @@ Sheep::Sheep() {
 	initiative = 4;
 
 	species = SHEEP;
-	visual = 'S';
+	visual = '$';
 }
 
 void Sheep::Breed(Animal* partner) {

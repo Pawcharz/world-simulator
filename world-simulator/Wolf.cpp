@@ -7,7 +7,7 @@ Wolf::Wolf() {
 	initiative = 5;
 
 	species = WOLF;
-	visual = 'W';
+	visual = '#';
 }
 
 void Wolf::Breed(Animal* partner) {

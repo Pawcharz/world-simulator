@@ -26,15 +26,6 @@ Organism::~Organism() {
 	position = nullptr;
 }
 
-
-void Organism::Action() {
-	cout << "BASE CLASS ACTION" << endl;
-}
-
-void Organism::Collision(Organism* foundOrganism) {
-	cout << "BASE CLASS COLLISION" << endl;
-}
-
 DEFENCE_RESULT Organism::Defend(Organism* attacker) {
 	if (attacker->GetStrength() >= strength) {
 		return TARGET_KILLED;
@@ -80,7 +71,6 @@ char Organism::GetVisual() {
 
 
 void Organism::SetPosition(Point2D& newPosition) {
-	//delete position;
 	*position = newPosition;
 }
 

@@ -4,13 +4,13 @@
 
 Human::Human() {
 
-	strength = 5;
+	strength = 105;
 	baseStrength = strength;
 
 	initiative = 4;
 
 	species = HUMAN;
-	visual = '+';
+	visual = 'H';
 
 	specialAbilityCooldown = 0;
 	strengthBuff = 0;
@@ -30,7 +30,7 @@ Human::Human(Organism& base) {
 	position = pos;
 
 	species = HUMAN;
-	visual = '+';
+	visual = 'H';
 
 	specialAbilityCooldown = 0;
 	strengthBuff = 0;

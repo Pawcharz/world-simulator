@@ -1,7 +1,7 @@
 #include "Antilope.h"
 #include "World.h"
 
-const int ANTILOPE_ESCAPE_CHANCE = 1;
+const float ANTILOPE_ESCAPE_CHANCE = 0.5;
 
 Antilope::Antilope() {
 

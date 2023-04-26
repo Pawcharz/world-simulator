@@ -1,6 +1,5 @@
 ﻿#include <iostream>
 #include "World.h"
-#include "Wolf.h"
 
 int main()
 {

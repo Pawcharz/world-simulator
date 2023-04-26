@@ -7,7 +7,7 @@ Fox::Fox() {
 	initiative = 7;
 
 	species = FOX;
-	visual = 'F';
+	visual = '%';
 }
 
 vector<Point2D>* Fox::GetPositionsToMove() {

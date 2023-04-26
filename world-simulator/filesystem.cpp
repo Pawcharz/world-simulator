@@ -1,29 +1,44 @@
 #include "World.h"
-//#include "utlis.h"
 #include <fstream>
-//#pragma warning(disable : 4996)
 
 using namespace std;
 
+struct OrganismBase {
+	int strength;
+	int initiative;
+
+	int age;
+
+	Point2D* position;
+
+	ORGANISM_SPECIES species;
+	char visual;
+
+	ORGANISM_STATE state;
+};
+
+
+
 // Copies only properties that can vary between instances of the same subclass of Organism
-void copyBaseProperties(Organism& base, Organism* target) {
+void copyBaseProperties(OrganismBase& base, Organism* target) {
 
-	target->SetStrength(base.GetStrength());
-	target->SetInitiative(base.GetInitiative());
+	target->SetStrength(base.strength);
+	target->SetInitiative(base.initiative);
 
-	target->SetAge(base.GetAge());
-	target->SetPosition(base.GetPosition());
+	target->SetAge(base.age);
 
-	target->SetState(base.GetState());
+	target->SetPosition(*base.position);
+
+	target->SetState(base.state);
 }
 
-Organism* spawnOrganismBySpecies(Organism* base) {
+Organism* spawnOrganismBySpecies(OrganismBase& base) {
 
-	ORGANISM_SPECIES species = base->GetSpecies();
+	ORGANISM_SPECIES species = base.species;
 
 	if (species == HUMAN) {
 		// FIX - probably could be removed
-		Human* asHuman = dynamic_cast<Human*>(base);
+		/*Human* asHuman = dynamic_cast<Human*>(base);
 
 		Human* player = new Human();
 
@@ -34,35 +49,35 @@ Organism* spawnOrganismBySpecies(Organism* base) {
 		World* world = World::GetInstance();
 		world->SetPlayer(player);
 
-		return player;
+		return player;*/
 	}
 	else if (species == WOLF) {
 		Wolf* organism = new Wolf();
-		copyBaseProperties(*base, organism);
+		copyBaseProperties(base, organism);
 
 		return organism;
 	}
 	else if (species == SHEEP) {
 		Sheep* organism = new Sheep();
-		copyBaseProperties(*base, organism);
+		copyBaseProperties(base, organism);
 
 		return organism;
 	}
 	else if (species == FOX) {
 		Fox* organism = new Fox();
-		copyBaseProperties(*base, organism);
+		copyBaseProperties(base, organism);
 
 		return organism;
 	}
 	else if (species == TURTLE) {
 		Turtle* organism = new Turtle();
-		copyBaseProperties(*base, organism);
+		copyBaseProperties(base, organism);
 
 		return organism;
 	}
 	else if (species == ANTILOPE) {
 		Antilope* organism = new Antilope();
-		copyBaseProperties(*base, organism);
+		copyBaseProperties(base, organism);
 
 		return organism;
 	}
@@ -71,31 +86,31 @@ Organism* spawnOrganismBySpecies(Organism* base) {
 	}
 	else if (species == GRASS) {
 		Grass* organism = new Grass();
-		copyBaseProperties(*base, organism);
+		copyBaseProperties(base, organism);
 
 		return organism;
 	}
 	else if (species == SOW_THISTLE) {
 		SowThistle* organism = new SowThistle();
-		copyBaseProperties(*base, organism);
+		copyBaseProperties(base, organism);
 
 		return organism;
 	}
 	else if (species == GUARANA) {
 		Guarana* organism = new Guarana();
-		copyBaseProperties(*base, organism);
+		copyBaseProperties(base, organism);
 
 		return organism;
 	}
 	else if (species == BELLADONNA) {
 		Belladonna* organism = new Belladonna();
-		copyBaseProperties(*base, organism);
+		copyBaseProperties(base, organism);
 
 		return organism;
 	}
 	else if (species == SOSNOWSKYS_HOGWEED) {
 		SosnowskysHogweed* organism = new SosnowskysHogweed();
-		copyBaseProperties(*base, organism);
+		copyBaseProperties(base, organism);
 
 		return organism;
 	}
@@ -245,6 +260,48 @@ istream& operator>>(istream& inputStream, Organism& organism) {
 	return inputStream;
 }
 
+istream& operator>>(istream& inputStream, OrganismBase& base) {
+
+	int strength;
+	inputStream >> base.strength;
+	//organism.SetStrength(strength);
+
+	int initiative;
+	inputStream >> base.initiative;
+	//organism.SetInitiative(initiative);
+
+	int age;
+	inputStream >> base.age;
+	//organism.SetAge(age);
+
+	int x, y;
+	inputStream >> x;
+	inputStream >> y;
+	Point2D* newPos = new Point2D(x, y);
+	base.position = newPos;
+	//organism.SetPosition(newPos);
+
+	string species;
+	inputStream >> species;
+	ORGANISM_SPECIES parsedSpecies = parseStringToSpecies(species);
+	base.species = parsedSpecies;
+	//organism.SetSpecies(parsedSpecies);
+
+	char visual;
+	inputStream >> base.visual;
+	//organism.SetVisual(visual);
+
+	string state;
+	inputStream >> state;
+
+	ORGANISM_STATE properState = parseStringToOrganismState(state);
+	base.state = properState;
+	//organism.SetState();
+
+	return inputStream;
+}
+
+
 ostream& operator<<(ostream& outputStream, Organism& organism)
 {
 	outputStream << parseIntToChar(organism.GetStrength()) << " ";
@@ -321,14 +378,16 @@ void World::LoadFromFile() {
 
 	for (int i = 0; i < organismsInputSize; i++)
 	{
-		Organism* base = new Organism();
+		//Organism* base = new Organism();
 
-		inputStream >> *base;
+		OrganismBase base;
+		inputStream >> base;
 
 		Organism* properType = nullptr;
-		if (base->GetSpecies() == HUMAN) {
-			Human* asHuman = new Human(*base);
-
+		if (base.species == HUMAN) {
+			
+			/*Human* asHuman = new Human(*base);
+			
 			int strengthBuff;
 			inputStream >> strengthBuff;
 			asHuman->SetStrengthBuff(strengthBuff);
@@ -337,7 +396,27 @@ void World::LoadFromFile() {
 			inputStream >> cooldown;
 			asHuman->SetAbilityCooldown(cooldown);
 
-			properType = spawnOrganismBySpecies(asHuman);
+			properType = spawnOrganismBySpecies(asHuman);*/
+
+			//properType = spawnOrganismBySpecies(asHuman);
+
+			Human* human = new Human();
+
+			copyBaseProperties(base, human);
+
+			int strengthBuff;
+			inputStream >> strengthBuff;
+			human->SetStrengthBuff(strengthBuff);
+
+			int cooldown;
+			inputStream >> cooldown;
+			human->SetAbilityCooldown(cooldown);
+
+			World* world = World::GetInstance();
+			world->SetPlayer(human);
+
+			properType = human;
+
 		}
 		else {
 			properType = spawnOrganismBySpecies(base);

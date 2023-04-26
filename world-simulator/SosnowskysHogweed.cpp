@@ -6,7 +6,7 @@ SosnowskysHogweed::SosnowskysHogweed() {
 	strength = 10;
 
 	species = SOSNOWSKYS_HOGWEED;
-	visual = 'H';
+	visual = 'S';
 }
 
 void SosnowskysHogweed::Action() {
