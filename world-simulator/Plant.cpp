@@ -1,7 +1,7 @@
 #include "Plant.h"
 #include "World.h"
 
-const float PLANT_PROBABILITY_TO_SPREAD = 0.1;
+const float PLANT_PROBABILITY_TO_SPREAD = 0.02;
 Plant::Plant() {
 	initiative = 0;
 

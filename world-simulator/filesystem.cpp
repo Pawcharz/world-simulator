@@ -37,19 +37,7 @@ Organism* spawnOrganismBySpecies(OrganismBase& base) {
 	ORGANISM_SPECIES species = base.species;
 
 	if (species == HUMAN) {
-		// FIX - probably could be removed
-		/*Human* asHuman = dynamic_cast<Human*>(base);
-
-		Human* player = new Human();
-
-		copyBaseProperties(*base, player);
-		player->SetStrengthBuff(asHuman->GetStrengthBuff());
-		player->SetAbilityCooldown(asHuman->GetAbilityCooldown());
-
-		World* world = World::GetInstance();
-		world->SetPlayer(player);
-
-		return player;*/
+		// Already done to upper scope
 	}
 	else if (species == WOLF) {
 		Wolf* organism = new Wolf();
@@ -224,42 +212,6 @@ string parseOrganismStateToString(ORGANISM_STATE species) {
 }
 
 
-istream& operator>>(istream& inputStream, Organism& organism) {
-
-	int strength;
-	inputStream >> strength;
-	organism.SetStrength(strength);
-
-	int initiative;
-	inputStream >> initiative;
-	organism.SetInitiative(initiative);
-
-	int age;
-	inputStream >> age;
-	organism.SetAge(age);
-
-	int x, y;
-	inputStream >> x;
-	inputStream >> y;
-	Point2D newPos(x, y);
-	organism.SetPosition(newPos);
-
-	string species;
-	inputStream >> species;
-	ORGANISM_SPECIES parsedSpecies = parseStringToSpecies(species);
-	organism.SetSpecies(parsedSpecies);
-
-	char visual;
-	inputStream >> visual;
-	organism.SetVisual(visual);
-
-	string state;
-	inputStream >> state;
-	organism.SetState(parseStringToOrganismState(state));
-
-	return inputStream;
-}
-
 istream& operator>>(istream& inputStream, OrganismBase& base) {
 
 	int strength;
@@ -378,7 +330,6 @@ void World::LoadFromFile() {
 
 	for (int i = 0; i < organismsInputSize; i++)
 	{
-		//Organism* base = new Organism();
 
 		OrganismBase base;
 		inputStream >> base;
@@ -386,20 +337,6 @@ void World::LoadFromFile() {
 		Organism* properType = nullptr;
 		if (base.species == HUMAN) {
 			
-			/*Human* asHuman = new Human(*base);
-			
-			int strengthBuff;
-			inputStream >> strengthBuff;
-			asHuman->SetStrengthBuff(strengthBuff);
-
-			int cooldown;
-			inputStream >> cooldown;
-			asHuman->SetAbilityCooldown(cooldown);
-
-			properType = spawnOrganismBySpecies(asHuman);*/
-
-			//properType = spawnOrganismBySpecies(asHuman);
-
 			Human* human = new Human();
 
 			copyBaseProperties(base, human);

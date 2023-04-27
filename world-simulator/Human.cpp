@@ -4,30 +4,10 @@
 
 Human::Human() {
 
-	strength = 105;
+	strength = 5;
 	baseStrength = strength;
 
 	initiative = 4;
-
-	species = HUMAN;
-	visual = 'H';
-
-	specialAbilityCooldown = 0;
-	strengthBuff = 0;
-}
-
-Human::Human(Organism& base) {
-
-	strength = base.GetStrength();
-	baseStrength = strength;
-
-	initiative = base.GetInitiative();
-
-	Point2D* pos = new Point2D();
-	pos->x = base.GetPosition().x;
-	pos->y = base.GetPosition().y;
-
-	position = pos;
 
 	species = HUMAN;
 	visual = 'H';

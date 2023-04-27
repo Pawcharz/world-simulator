@@ -10,13 +10,14 @@ World::~World() {
 
 World::World() : height(1), width(1) {
 
-	// FIX - Should i move it?
-	// FIX - Not working perfectly - first rand() always returns 4
 	srand(time(NULL));
 
 	organisms = new vector<Organism*>();
 	player = nullptr;
 	justLoaded = false;
+
+	controller = nullptr;
+	displayer = nullptr;
 };
 
 World* World::GetInstance()

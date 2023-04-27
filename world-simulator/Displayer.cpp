@@ -97,6 +97,24 @@ void Displayer::UpdateBuffer() {
 	}
 }
 
+
+void Displayer::DrawLegend() {
+	cout << endl;
+	cout << "H - Human" << endl;
+	cout << endl;
+	cout << "# - Wolf" << endl;
+	cout << "S - Sheep" << endl;
+	cout << "& - Antilope" << endl;
+	cout << "% - Fox" << endl;
+	cout << "@ - Turtle" << endl;
+	cout << endl;
+	cout << "G - Grass" << endl;
+	cout << "T - Sow Thistle" << endl;
+	cout << "R - Guarana" << endl;
+	cout << "B - Belladonna" << endl;
+	cout << "S - Sosnowskys Hogweed" << endl;
+}
+
 void Displayer::DrawWorld() {
 	UpdateBuffer();
 
@@ -125,6 +143,8 @@ void Displayer::DrawWorld() {
 	{
 		cout << (*logs)[i] << endl;
 	}
+
+	DrawLegend();
 }
 
 void Displayer::DrawFileMenu() {

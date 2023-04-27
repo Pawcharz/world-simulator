@@ -21,6 +21,8 @@ private:
 
 	void UpdateBuffer();
 
+	void DrawLegend();
+
 public:
 
 	Displayer();
