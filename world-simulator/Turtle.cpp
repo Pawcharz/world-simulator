@@ -9,6 +9,7 @@ Turtle::Turtle() {
 	strength = 3;
 	initiative = 7;
 
+	species = TURTLE;
 	visual = '@';
 }
 
@@ -31,4 +32,20 @@ DEFENCE_RESULT Turtle::Defend(Organism* attacker) {
 	}
 
 	return TARGET_KILLED;
+}
+
+void Turtle::Breed(Animal* partner) {
+	World* world = World::GetInstance();
+	Point2D* breedPosition = partner->GetBreedPosition(partner->GetPosition());
+
+	if (breedPosition == nullptr) {
+		return;
+	}
+
+	Turtle* child = new Turtle();
+	child->SetPosition(*breedPosition);
+	world->GetOrganisms()->push_back(child);
+
+	Displayer* displayer = world->GetDisplayer();
+	displayer->AddLog(GetDescribtion() + " and " + partner->GetDescribtion() + " born the new " + child->GetDescribtion());
 }

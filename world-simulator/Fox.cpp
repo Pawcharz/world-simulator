@@ -6,7 +6,8 @@ Fox::Fox() {
 	strength = 3;
 	initiative = 7;
 
-	visual = 'F';
+	species = FOX;
+	visual = '%';
 }
 
 vector<Point2D>* Fox::GetPositionsToMove() {
@@ -31,4 +32,20 @@ vector<Point2D>* Fox::GetPositionsToMove() {
 	}
 
 	return available;
+}
+
+void Fox::Breed(Animal* partner) {
+	World* world = World::GetInstance();
+	Point2D* breedPosition = partner->GetBreedPosition(partner->GetPosition());
+
+	if (breedPosition == nullptr) {
+		return;
+	}
+
+	Fox* child = new Fox();
+	child->SetPosition(*breedPosition);
+	world->GetOrganisms()->push_back(child);
+
+	Displayer* displayer = world->GetDisplayer();
+	displayer->AddLog(GetDescribtion() + " and " + partner->GetDescribtion() + " born the new " + child->GetDescribtion());
 }

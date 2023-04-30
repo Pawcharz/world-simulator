@@ -1,8 +1,6 @@
 #include "World.h"
-#include "Displayer.h"
 
 World* World::worldInstance = nullptr;
-
 
 
 World::~World() {
@@ -12,22 +10,25 @@ World::~World() {
 
 World::World() : height(1), width(1) {
 
-	// FIX - Should i move it?
-	// FIX - Not working perfectly - first rand() always returns 4
 	srand(time(NULL));
 
 	organisms = new vector<Organism*>();
+	player = nullptr;
+	justLoaded = false;
+
+	controller = nullptr;
+	displayer = nullptr;
 };
 
 World* World::GetInstance()
 {
 	if (worldInstance == nullptr) {
 		worldInstance = new World();
-		return worldInstance;
 	}
 
 	return worldInstance;
 }
+
 
 void World::SetSize(int widthArg, int heightArg) {
 	width = widthArg;
@@ -37,94 +38,46 @@ void World::SetSize(int widthArg, int heightArg) {
 void World::Initialize(int widthArg, int heightArg) {
 	SetSize(widthArg, heightArg);
 
-	const int WOLFS_COUNT = 2;
-	const int SHEEPS_COUNT = 4;
-	const int FOXES_COUNT = 2;
-	const int TURTLES_COUNT = 2;
-	const int ANTELOPES_COUNT = 2;
+	displayer = new Displayer();
+	controller = new Controller();
+
+	const int WOLFS_COUNT = 4;
+	const int SHEEPS_COUNT = 5;
+	const int FOXES_COUNT = 3;
+	const int TURTLES_COUNT = 3;
+	const int ANTELOPES_COUNT = 3;
 
 
-	const int GRASS_COUNT = 1;
+	const int GRASS_COUNT = 3;
 	const int SOW_THISTLE_COUNT = 1;
-	const int GUARANA_COUNT = 3;
-	const int BELLADONNA_COUNT = 10;
+	const int GUARANA_COUNT = 2;
+	const int BELLADONNA_COUNT = 3;
 	const int SOSNOWSKYS_HOGWEED_COUNT = 2;
 
-	/*CreateSpecies<Wolf>(WOLFS_COUNT);
-	CreateSpecies<Grass>(GRASS_COUNT);
+	CreateHuman();
+
+	CreateSpecies<Wolf>(WOLFS_COUNT);
+	CreateSpecies<Sheep>(SHEEPS_COUNT);
 	CreateSpecies<Fox>(FOXES_COUNT);
 	CreateSpecies<Turtle>(TURTLES_COUNT);
+	CreateSpecies<Antilope>(ANTELOPES_COUNT);
 
-	CreateSpecies<Sheep>(SHEEPS_COUNT);
+	CreateSpecies<Grass>(GRASS_COUNT);
 	CreateSpecies<SowThistle>(SOW_THISTLE_COUNT);
 	CreateSpecies<Guarana>(GUARANA_COUNT);
-	CreateSpecies<Belladonna>(BELLADONNA_COUNT);*/
-
-
-	//CreateSpecies<Wolf>(2);
-	//CreateSpecies<Fox>(3);
-	//CreateSpecies<Grass>(2);
-	CreateSpecies<Antilope>(3);
-	CreateSpecies<Wolf>(2);
+	CreateSpecies<Belladonna>(BELLADONNA_COUNT);
+	CreateSpecies<SosnowskysHogweed>(SOSNOWSKYS_HOGWEED_COUNT);
 }
 
-template<typename ElementType>
-bool vectorIncludes(vector<ElementType>* vector, ElementType elem) {
-	int foundElements = count(vector->begin(), vector->end(), elem);
 
-	if (foundElements > 0) {
-		return true;
-	}
-	return false;
+Controller* World::GetController() {
+	return controller;
 }
 
-Organism* getQuickestOrganism(vector<Organism*>* all, vector<Organism*>* excluded) {
-	int length = all->size();
-
-	Organism* best = nullptr;
-
-	for (int i = 0; i < length; i++)
-	{
-		Organism* newOrganism = (*all)[i];
-
-		bool includes = vectorIncludes<Organism*>(excluded, newOrganism);
-
-		if (!includes) {
-			if (best == nullptr) {
-				best = newOrganism;
-			}
-			else {
-				int currentInitiative = best->GetInitiative();
-				int newInitiative = newOrganism->GetInitiative();
-
-				if (newInitiative > currentInitiative) {
-					best = newOrganism;
-				}
-				else if (newInitiative == currentInitiative && newOrganism->GetAge() > best->GetAge()) {
-
-					best = newOrganism;
-				}
-			}
-		}
-	}
-
-	return best;
+Displayer* World::GetDisplayer() {
+	return displayer;
 }
 
-void World::SortOrganisms() {
-	int length = organisms->size();
-
-	vector<Organism*>* sorted = new vector<Organism*>();
-
-	for (int i = 0; i < length; i++) {
-		Organism* best = getQuickestOrganism(organisms, sorted);
-
-		sorted->push_back(best);
-	}
-
-	delete organisms;
-	organisms = sorted;
-}
 
 bool World::IsWithinBorders(Point2D& position) {
 
@@ -173,7 +126,7 @@ vector<Point2D>* World::GetFieldsAtRadius(Point2D& center, int radius) {
 	}
 	return neighbours;
 }
-
+ 
 
 vector<Point2D>* World::GetNeighbouringFields(Point2D& position) {
 	return GetFieldsAtRadius(position);
@@ -241,6 +194,93 @@ Organism* World::GetOrganismAtPosition(Point2D& position) {
 }
 
 
+template<typename ElementType>
+bool vectorIncludes(vector<ElementType>* vector, ElementType elem) {
+	int foundElements = count(vector->begin(), vector->end(), elem);
+
+	if (foundElements > 0) {
+		return true;
+	}
+	return false;
+}
+
+Organism* getQuickestOrganism(vector<Organism*>* all, vector<Organism*>* excluded) {
+	int length = all->size();
+
+	Organism* best = nullptr;
+
+	for (int i = 0; i < length; i++)
+	{
+		Organism* newOrganism = (*all)[i];
+
+		bool includes = vectorIncludes<Organism*>(excluded, newOrganism);
+
+		if (!includes) {
+			if (best == nullptr) {
+				best = newOrganism;
+			}
+			else {
+				int currentInitiative = best->GetInitiative();
+				int newInitiative = newOrganism->GetInitiative();
+
+				if (newInitiative > currentInitiative) {
+					best = newOrganism;
+				}
+				else if (newInitiative == currentInitiative && newOrganism->GetAge() > best->GetAge()) {
+
+					best = newOrganism;
+				}
+			}
+		}
+	}
+
+	return best;
+}
+
+void World::SortOrganisms() {
+	int length = organisms->size();
+
+	vector<Organism*>* sorted = new vector<Organism*>();
+
+	for (int i = 0; i < length; i++) {
+		Organism* best = getQuickestOrganism(organisms, sorted);
+
+		sorted->push_back(best);
+	}
+
+	delete organisms;
+	organisms = sorted;
+}
+
+
+void World::CreateHuman() {
+	player = new Human();
+	Point2D position = Point2D::Random(GetStartBorders(), GetFinishBorders());
+
+	// FIX - will crash for more entities on the map
+	Organism* existing = GetOrganismAtPosition(position);
+	while (existing != nullptr)
+	{
+		position = Point2D::Random(GetStartBorders(), GetFinishBorders());
+		existing = GetOrganismAtPosition(position);
+	}
+
+	player->SetPosition(position);
+	organisms->push_back(player);
+}
+
+
+void World::SetPlayer(Human* newPlayer) {
+	if (player != nullptr) {
+		delete player;
+	}
+	player = newPlayer;
+}
+
+Human* World::GetPlayer() {
+	return player;
+}
+
 
 // Sets dead organisms to nullptr to avoid bugs while iterating over whole vectors in MakeTurn() function.
 void World::KillOrganism(Organism* target) {
@@ -262,10 +302,17 @@ void World::CleanDeadOrganisms() {
 	for (int i = 0; i < organismsCount; i++)
 	{
 		Organism* organism = (*organisms)[i];
-		if (organism->GetState()) {
+		if (organism->GetState() == ALIVE) {
 			newOrganisms->push_back(organism);
 		}
+		else {
+			if (organism->GetSpecies() == HUMAN) {
+				player = nullptr;
+			}
+			delete organism;
+		}
 	}
+
 
 	delete organisms;
 	organisms = nullptr;
@@ -274,6 +321,7 @@ void World::CleanDeadOrganisms() {
 
 
 void World::MakeTurn() {
+
 	// Sort organisms by initiative
 	int initialOrganismsCount = organisms->size();
 	SortOrganisms();
@@ -281,9 +329,15 @@ void World::MakeTurn() {
 	// Shouldnt break the order of organisms as we are marking deadAnimals as nullptr and new ones are created at the ond of the array (out of the initialOrganismsCount)
 	for (int i = 0; i < initialOrganismsCount; i++)
 	{
+		if (justLoaded == true) {
+
+			justLoaded = false;
+			return;
+		}
+
 		Organism* elem = (*organisms)[i];
 
-		if (elem != nullptr) {
+		if (elem != nullptr && elem->GetState() == ALIVE) {
 			elem->Action();
 		}
 	}
@@ -301,17 +355,15 @@ void World::MakeTurn() {
 }
 
 void World::Simulate() {
-	Displayer* displayer = Displayer::GetInstance();
 
-	char pressed = NULL;
+	displayer->DrawWorld();
 
-	while (pressed != 'q') {
-		pressed = getchar();
-
-		if (pressed == ' ') {
-			MakeTurn();
-			displayer->DrawWorld();
-		}
+	while (player != nullptr) {
+		MakeTurn();
 	}
-	
+
+	displayer->AddLog("\n");
+	displayer->AddLog("Human got killed - GAME OVER");
+
+	displayer->DrawWorld();
 }

@@ -20,3 +20,5 @@ float randomNumber();
 int randomInteger(int min, int max);
 
 int roundToInt(float number);
+
+char* parseIntToChar(int inputValue);

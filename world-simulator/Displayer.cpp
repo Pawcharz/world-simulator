@@ -1,6 +1,6 @@
 #include "Displayer.h"
+#include "World.h"
 
-Displayer* Displayer::displayerInstance = nullptr;
 
 Displayer::Displayer() {
 	World* world = World::GetInstance();
@@ -9,7 +9,6 @@ Displayer::Displayer() {
 	Point2D displayedSize = size;
 	displayedSize.x += 2;
 	displayedSize.y += 2;
-	//displayedSize.x *= 2;
 
 	screenBuffer = new vector<vector<char*>*>(size.y);
 
@@ -23,18 +22,49 @@ Displayer::Displayer() {
 		(*screenBuffer)[y] = rowTmp;
 	}
 
+
+	logs = new vector<string>;
 }
 
-Displayer* Displayer::GetInstance() {
-	if (displayerInstance == nullptr) {
-		displayerInstance = new Displayer();
-		return displayerInstance;
-	}
 
-	return displayerInstance;
+
+void Displayer::AddLog(string logText) {
+	logs->push_back(logText);
+}
+
+void Displayer::ResetLogs() {
+	logs->clear();
+}
+
+void Displayer::RegenerateBuffer() {
+
+	World* world = World::GetInstance();
+	Point2D size = world->GetSize();
+
+	//int oldHeight = screenBuffer->size();
+	//for (int y = 0; y < oldHeight; y++)
+	//{
+	//	delete (*screenBuffer)[y];
+	//}
+
+	delete screenBuffer;
+	screenBuffer = new vector<vector<char*>*>(size.y);
+
+	for (int y = 0; y < size.y; y++)
+	{
+		vector<char*>* rowTmp = new vector<char*>(size.x);
+		for (int x = 0; x < size.x; x++)
+		{
+			(*rowTmp)[x] = new char('*');
+		}
+		(*screenBuffer)[y] = rowTmp;
+	}
 }
 
 void Displayer::UpdateBuffer() {
+
+	RegenerateBuffer();
+
 	World* world = World::GetInstance();
 
 	int height = screenBuffer->size();
@@ -67,9 +97,32 @@ void Displayer::UpdateBuffer() {
 	}
 }
 
+
+void Displayer::DrawLegend() {
+	cout << endl;
+	cout << "H - Human" << endl;
+	cout << endl;
+	cout << "# - Wolf" << endl;
+	cout << "S - Sheep" << endl;
+	cout << "& - Antilope" << endl;
+	cout << "% - Fox" << endl;
+	cout << "@ - Turtle" << endl;
+	cout << endl;
+	cout << "G - Grass" << endl;
+	cout << "T - Sow Thistle" << endl;
+	cout << "R - Guarana" << endl;
+	cout << "B - Belladonna" << endl;
+	cout << "S - Sosnowskys Hogweed" << endl;
+}
+
 void Displayer::DrawWorld() {
 	UpdateBuffer();
+
 	system("cls");
+
+	cout << "Pawel Blicharz - s193193 | World Simulator";
+	cout << endl;
+	cout << endl;
 
 	int height = screenBuffer->size();
 	for (int y = height-1; y >= 0; y--)
@@ -82,5 +135,41 @@ void Displayer::DrawWorld() {
 			cout << *(*row)[x] << ' ';
 		}
 		cout << endl;
+	}
+	cout << endl;
+
+	int logsSize = logs->size();
+	for (int i = 0; i < logsSize; i++)
+	{
+		cout << (*logs)[i] << endl;
+	}
+
+	DrawLegend();
+}
+
+void Displayer::DrawFileMenu() {
+
+	Controller* controller = World::GetInstance()->GetController();
+
+	system("cls");
+
+	if (controller->GetMode() == FILE_SAVING) {
+		cout << "File saving menu:" << endl;
+	}
+	else {
+		cout << "File loading menu:" << endl;
+	}
+
+	cout << "Write name of the file: " << controller->GetFileName() << endl;
+}
+
+void Displayer::DrawInterface() {
+	Controller* controller = World::GetInstance()->GetController();
+
+	if (controller->GetMode() == SIMULATION_PLAYING) {
+		DrawWorld();
+	}
+	else {
+		DrawFileMenu();
 	}
 }

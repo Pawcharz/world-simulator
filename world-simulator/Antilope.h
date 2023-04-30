@@ -3,6 +3,12 @@
 
 class Antilope : public Animal
 {
+private:
+
+	void Breed(Animal* partner);
+
+	bool EscapeFromFight(Point2D& targetPosition);
+
 protected:
 
 	void Attack(Organism* target);
@@ -14,5 +20,5 @@ protected:
 public:
 	Antilope();
 
-	~Antilope();
+	//~Antilope();
 };

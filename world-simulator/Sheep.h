@@ -3,6 +3,9 @@
 
 class Sheep : public Animal
 {
+protected:
+
+	void Breed(Animal* partner);
 
 public:
 	Sheep();
